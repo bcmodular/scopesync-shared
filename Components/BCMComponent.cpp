@@ -71,9 +71,9 @@ public:
         addAndMakeVisible(systemErrorLabel);
         
         systemErrorDetailsButton.setImages(false, true, true,
-            imageLoader->loadImage("helpOff",  String()), 1.0f, Colours::transparentBlack,
-            imageLoader->loadImage("helpOver", String()), 1.0f, Colours::transparentBlack,
-            imageLoader->loadImage("helpOn",   String()), 1.0f, Colours::transparentBlack);
+            imageLoader->loadImage("help_button_off.png",  String()), 1.0f, Colours::transparentBlack,
+            imageLoader->loadImage("help_button_over.png", String()), 1.0f, Colours::transparentBlack,
+            imageLoader->loadImage("help_button_on.png",   String()), 1.0f, Colours::transparentBlack);
 
         details = errorDetails;
         addAndMakeVisible(systemErrorDetailsButton);
@@ -81,9 +81,9 @@ public:
         systemErrorDetailsButton.addListener(this);
 
         closeButton.setImages(false, true, true,
-            imageLoader->loadImage("closeOff",  String()), 1.0f, Colours::transparentBlack,
-            imageLoader->loadImage("closeOver", String()), 1.0f, Colours::transparentBlack,
-            imageLoader->loadImage("closeOn",   String()), 1.0f, Colours::transparentBlack);
+            imageLoader->loadImage("Close_button_off.png",  String()), 1.0f, Colours::transparentBlack,
+            imageLoader->loadImage("Close_button_over.png", String()), 1.0f, Colours::transparentBlack,
+            imageLoader->loadImage("Close_button_on.png",   String()), 1.0f, Colours::transparentBlack);
 
         addAndMakeVisible(closeButton);
         closeButton.addListener(this);
@@ -187,23 +187,23 @@ public:
     {
         commandManager = scopeSync.getCommandManager();
         
-        setButtonImages(saveButton, "saveOff", "saveOver", "saveOn", Colours::transparentBlack, imageLoader);
-        saveButton.setCommandToTrigger(commandManager, CommandIDs::saveConfig, true);
+		setButtonImages(saveButton, "Save_button_off.png", "Save_button_over.png", "Save_button_on.png", Colours::transparentBlack, imageLoader);
+		saveButton.setCommandToTrigger(commandManager, CommandIDs::saveConfig, true);
         addAndMakeVisible(saveButton);
 
-        setButtonImages(saveAsButton, "saveAsOff", "saveAsOver", "saveAsOn", Colours::transparentBlack, imageLoader);
-        saveAsButton.setCommandToTrigger(commandManager, CommandIDs::saveConfigAs, true);
+		setButtonImages(saveAsButton, "SaveAs_button_off.png", "SaveAs_button_over.png", "SaveAs_button_on.png", Colours::transparentBlack, imageLoader);
+		saveAsButton.setCommandToTrigger(commandManager, CommandIDs::saveConfigAs, true);
         addAndMakeVisible(saveAsButton);
 
-        setButtonImages(undoButton, "undoOff", "undoOver", "undoOn", Colours::transparentBlack, imageLoader);
-        undoButton.setCommandToTrigger(commandManager, CommandIDs::undo, true);
+		setButtonImages(undoButton, "Undo_button_off.png", "Undo_button_over.png", "Undo_button_on.png", Colours::transparentBlack, imageLoader);
+		undoButton.setCommandToTrigger(commandManager, CommandIDs::undo, true);
         addAndMakeVisible(undoButton);
 
-        setButtonImages(redoButton, "redoOff", "redoOver", "redoOn", Colours::transparentBlack, imageLoader);
-        redoButton.setCommandToTrigger(commandManager, CommandIDs::redo, true);
+		setButtonImages(redoButton, "Redo_button_off.png", "Redo_button_over.png", "Redo_button_on.png", Colours::transparentBlack, imageLoader);
+		redoButton.setCommandToTrigger(commandManager, CommandIDs::redo, true);
         addAndMakeVisible(redoButton);
 
-        setButtonImages(editToolbarShowButton, "toolbarOff", "toolbarOver", "toolbarOn", Colours::transparentBlack, imageLoader);
+        setButtonImages(editToolbarShowButton, "toolbar_button_off.png", "toolbar_button_over.png", "toolbar_button_on.png", Colours::transparentBlack, imageLoader);
         editToolbarShowButton.setCommandToTrigger(commandManager, CommandIDs::showHideEditToolbar, true);
         addAndMakeVisible(editToolbarShowButton);
 
@@ -239,8 +239,8 @@ private:
 
     void paint(Graphics& g) override
     {
-        g.drawImageAt(imageLoader->loadImage("toolbarBevel", String()), 0, 7);
-        g.drawImageAt(imageLoader->loadImage("divider", String()), 65, 8);       
+        g.drawImageAt(imageLoader->loadImage("toolbar_bevel.png", String()), 0, 7);
+        g.drawImageAt(imageLoader->loadImage("divider.png", String()), 65, 8);       
     }
 
 	static void setButtonImages(ImageButton& button, const String& normalImage, const String& overImage, const String& downImage, const Colour& overlayColour, ImageLoader* imgLoader)

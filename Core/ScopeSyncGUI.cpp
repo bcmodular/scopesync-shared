@@ -93,7 +93,7 @@ AboutBoxWindow::AboutBox::AboutBox()
     
 void AboutBoxWindow::AboutBox::paint(Graphics& g)
 {
-    Image scopeSyncImage = imageLoader->loadImage("scopeSyncLogo", String());
+    Image scopeSyncImage = imageLoader->loadImage("ScopeSync_Logo.png", String());
     g.drawImageWithin(scopeSyncImage, 0, 0, getWidth(), 40, RectanglePlacement::doNotResize);
 }
 

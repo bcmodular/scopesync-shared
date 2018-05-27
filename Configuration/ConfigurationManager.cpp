@@ -63,31 +63,31 @@ ConfigurationManager::ConfigurationManager(ScopeSync& ss, ConfigurationManagerWi
     fileNameLabel.setMinimumHorizontalScale(1.0f);
     addAndMakeVisible(fileNameLabel);
 
-    setButtonImages(addButton, "newConfigOff", "newConfigOver", "newConfigOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(addButton, "NewConfig_button_off.png", "NewConfig_button_over.png", "NewConfig_button_on.png", Colours::transparentBlack, imageLoader);
     addButton.setCommandToTrigger(commandManager, CommandIDs::addConfig, true);
     addAndMakeVisible(addButton);
 
-    setButtonImages(saveButton, "saveOff", "saveOver", "saveOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(saveButton, "Save_button_off.png", "Save_button_over.png", "Save_button_on.png", Colours::transparentBlack, imageLoader);
     saveButton.setCommandToTrigger(commandManager, CommandIDs::saveConfig, true);
     addAndMakeVisible(saveButton);
 
-    setButtonImages(saveAsButton, "saveAsOff", "saveAsOver", "saveAsOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(saveAsButton, "SaveAs_button_off.png", "SaveAs_button_over.png", "SaveAs_button_on.png", Colours::transparentBlack, imageLoader);
     saveAsButton.setCommandToTrigger(commandManager, CommandIDs::saveConfigAs, true);
     addAndMakeVisible(saveAsButton);
 
-    setButtonImages(applyChangesButton, "confirmOff", "confirmOver", "confirmOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(applyChangesButton, "confirm_button_off.png", "confirm_button_over.png", "confirm_button_on.png", Colours::transparentBlack, imageLoader);
     applyChangesButton.setCommandToTrigger(commandManager, CommandIDs::applyConfigChanges, true);
     addAndMakeVisible(applyChangesButton);
 
-    setButtonImages(discardChangesButton, "closeOff", "closeOver", "closeOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(discardChangesButton, "Close_button_off.png", "Close_button_over.png", "Close_button_on.png", Colours::transparentBlack, imageLoader);
     discardChangesButton.setCommandToTrigger(commandManager, CommandIDs::discardConfigChanges, true);
     addAndMakeVisible(discardChangesButton);
 
-    setButtonImages(undoButton, "undoOff", "undoOver", "undoOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(undoButton, "Undo_button_off.png", "Undo_button_over.png", "Undo_button_on.png", Colours::transparentBlack, imageLoader);
     undoButton.setCommandToTrigger(commandManager, CommandIDs::undo, true);
     addAndMakeVisible(undoButton);
 
-    setButtonImages(redoButton, "redoOff", "redoOver", "redoOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(redoButton, "Redo_button_off.png", "Redo_button_over.png", "Redo_button_on.png", Colours::transparentBlack, imageLoader);
     redoButton.setCommandToTrigger(commandManager, CommandIDs::redo, true);
     addAndMakeVisible(redoButton);
 
@@ -360,8 +360,8 @@ void ConfigurationManager::paint(Graphics& g)
     g.fillRect(0, 0, getWidth(), 40);
     g.fillRect(0, 0, getWidth(), getHeight() - 40);
 
-    g.drawImageAt(imageLoader->loadImage("divider", String()), 134, 8);
-    g.drawImageAt(imageLoader->loadImage("divider", String()), 228, 8);
+    g.drawImageAt(imageLoader->loadImage("divider.png", String()), 134, 8);
+    g.drawImageAt(imageLoader->loadImage("divider.png", String()), 228, 8);
 }
 
 void ConfigurationManager::paintOverChildren(Graphics& g)

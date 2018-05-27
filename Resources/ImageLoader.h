@@ -39,21 +39,10 @@ public:
     ImageLoader();
     ~ImageLoader();
 
-    struct ImageResource {
-        String      imageName;
-        const char* image;
-        int         imageSize;
-    };
-    
     // Load image, either direct from file, via Image Cache, or from resources
     Image loadImage(const String& imageFileName, const String& directoryPath) const;
     
 private:
-    // Initialise image resources
-    void loadImageResources();
-    void addImageResource(String imageName, const char* image, int imageSize);
-
-    OwnedArray<ImageResource> imageResources;
 	SharedResourcePointer<UserSettings> userSettings;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ImageLoader)

@@ -26,89 +26,89 @@
     <lookandfeel id="system:load_config_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="loadConfigButtonOff" downfilename="loadConfigButtonOn"
-                        mouseoverupfilename="loadConfigButtonOver"
-                        mouseoverdownfilename="loadConfigButtonOn"/>
+            <textbutton upfilename="load_config_button_off.png" downfilename="load_config_button_on.png"
+                        mouseoverupfilename="load_config_button_over.png"
+                        mouseoverdownfilename="load_config_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:new_config_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="newConfigOff" downfilename="newConfigOn" mouseoverupfilename="newConfigOver"
-                        mouseoverdownfilename="newConfigOn"/>
+            <textbutton upfilename="NewConfig_button_off.png" downfilename="NewConfig_button_on.png" mouseoverupfilename="NewConfig_button_over.png"
+                        mouseoverdownfilename="NewConfig_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:reload_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="reloadButtonOff" downfilename="reloadButtonOn"
-                        mouseoverupfilename="reloadButtonOver" mouseoverdownfilename="reloadButtonOn"/>
+            <textbutton upfilename="reload_button_off.png" downfilename="reload_button_on.png"
+                        mouseoverupfilename="reload_button_over.png" mouseoverdownfilename="reload_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:remove_config_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="removeConfigButtonOff" downfilename="removeConfigButtonOn"
-                        mouseoverupfilename="removeConfigButtonOver"
-                        mouseoverdownfilename="removeConfigButtonOn"/>
+            <textbutton upfilename="remove_button_off.png" downfilename="remove_button_on.png"
+                        mouseoverupfilename="remove_button_over.png"
+                        mouseoverdownfilename="remove_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:patch_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="patchWindowButtonOff" downfilename="patchWindowButtonOn"
-                        mouseoverupfilename="patchWindowButtonOver"
-                        mouseoverdownfilename="patchWindowButtonOn"/>
+            <textbutton upfilename="Patch_Window_button_off.png" downfilename="Patch_Window_button_on.png"
+                        mouseoverupfilename="Patch_Window_button_over.png"
+                        mouseoverdownfilename="Patch_Window_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:presets_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="presetsButtonOff" downfilename="presetsButtonOn"
-                        mouseoverupfilename="presetsButtonOver" mouseoverdownfilename="presetsButtonOn"/>
+            <textbutton upfilename="Presets_button_off.png" downfilename="Presets_button_on.png"
+                        mouseoverupfilename="Presets_button_over.png" mouseoverdownfilename="Presets_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:settings_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="settingsButtonOff" downfilename="settingsButtonOn"
-                        mouseoverupfilename="settingsButtonOver" mouseoverdownfilename="settingsButtonOn"/>
+            <textbutton upfilename="settings_button_off.png" downfilename="settings_button_on.png"
+                        mouseoverupfilename="settings_button_over.png" mouseoverdownfilename="settings_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:snapshot_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="snapshotOff" downfilename="snapshotOn" mouseoverupfilename="snapshotOver"
-                        mouseoverdownfilename="snapshotOn"/>
+            <textbutton upfilename="Snapshot_button_off.png" downfilename="Snapshot_button_on.png" mouseoverupfilename="Snapshot_button_over.png"
+                        mouseoverdownfilename="Snapshot_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:fxmono_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="fxMonoOff" downfilename="fxMonoOn" mouseoverupfilename="fxMonoOver"
-                        mouseoverdownfilename="fxMonoOn"/>
+            <textbutton upfilename="FXmono_button_off.png" downfilename="FXmono_button_on.png" mouseoverupfilename="FXmono_button_over.png"
+                        mouseoverdownfilename="FXmono_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:fxbypass_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="fxBypassOff" downfilename="fxBypassOn" mouseoverupfilename="fxBypassOver"
-                        mouseoverdownfilename="fxBypassOn"/>
+            <textbutton upfilename="FXbypass_button_off.png" downfilename="FXbypass_button_on.png" mouseoverupfilename="FXbypass_button_over.png"
+                        mouseoverdownfilename="FXbypass_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:showconfigurationmanager_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="showconfigurationmanagerOff" downfilename="showconfigurationmanagerOn"
-                        mouseoverupfilename="showconfigurationmanagerOver"
-                        mouseoverdownfilename="showconfigurationmanagerOn"/>
+            <textbutton upfilename="config_manager_button_off.png" downfilename="config_manager_button_on.png"
+                        mouseoverupfilename="config_manager_button_over.png"
+                        mouseoverdownfilename="config_manager_button_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:scopesynclogo_button" parentid="system:default">
         <appliesto componenttype="none"/>
         <images>
-            <textbutton upfilename="scopeSyncLogoOff" downfilename="scopeSyncLogoOn"
-                        mouseoverupfilename="scopeSyncLogoOn" mouseoverdownfilename="scopeSyncLogoOn"/>
+            <textbutton upfilename="ScopeSync_Logo_off.png" downfilename="ScopeSync_Logo_on.png"
+                        mouseoverupfilename="ScopeSync_Logo_on.png" mouseoverdownfilename="ScopeSync_Logo_on.png"/>
         </images>
     </lookandfeel>
     <lookandfeel id="system:deviceinstance" parentid="system:nostyle">

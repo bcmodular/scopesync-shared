@@ -170,14 +170,17 @@ UserSettings::UserSettings()
     addKeyListener(commandManager->getKeyMappings());
 
     PropertiesFile::Options options;
-    options.applicationName     = ProjectInfo::projectName;
-    options.folderName          = "ScopeSync";
+	// Perhaps at some point we should distinguish between "App" and "Global" settings
+	// but for now, we'll consider all settings shared
+    // options.applicationName     = ProjectInfo::projectName;
+	options.applicationName     = "ScopeSync";
+	options.folderName          = "ScopeSync";
     options.filenameSuffix      = "settings";
     options.osxLibrarySubFolder = "Application Support";
     appProperties.setStorageParameters(options);
 
-    options.applicationName     = "ScopeSync";
-    options.folderName          = "ScopeSync";
+    //options.applicationName     = "ScopeSync";
+    //options.folderName          = "ScopeSync";
     globalProperties.setStorageParameters(options);
 
     loadSwatchColours();

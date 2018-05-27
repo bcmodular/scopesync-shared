@@ -59,37 +59,37 @@ PresetManager::PresetManager(PresetManagerWindow& parent)
     setLookAndFeel(&lookAndFeel);
 
     commandManager->registerAllCommandsForTarget(this);
-    
-    setButtonImages(addButton, "newConfigOff", "newConfigOver", "newConfigOn", Colours::transparentBlack, imageLoader);
-    addButton.setCommandToTrigger(commandManager, CommandIDs::addPresetFile, true);
+
+	setButtonImages(addButton, "NewConfig_button_off.png", "NewConfig_button_over.png", "NewConfig_button_on.png", Colours::transparentBlack, imageLoader);
+	addButton.setCommandToTrigger(commandManager, CommandIDs::addPresetFile, true);
     addAndMakeVisible(addButton);
 
-    setButtonImages(openButton, "loadConfigButtonOff", "loadConfigButtonOver", "loadConfigButtonOn", Colours::transparentBlack, imageLoader);
+    setButtonImages(openButton, "load_config_button_off.png", "load_config_button_over.png", "load_config_button_on.png", Colours::transparentBlack, imageLoader);
     openButton.setCommandToTrigger(commandManager, CommandIDs::choosePresetFile, true);
     addAndMakeVisible(openButton);
     
-    setButtonImages(saveButton, "saveOff", "saveOver", "saveOn", Colours::transparentBlack, imageLoader);
-    saveButton.setCommandToTrigger(commandManager, CommandIDs::savePresetFile, true);
+	setButtonImages(saveButton, "Save_button_off.png", "Save_button_over.png", "Save_button_on.png", Colours::transparentBlack, imageLoader);
+	saveButton.setCommandToTrigger(commandManager, CommandIDs::savePresetFile, true);
     addAndMakeVisible(saveButton);
 
-    setButtonImages(saveAsButton, "saveAsOff", "saveAsOver", "saveAsOn", Colours::transparentBlack, imageLoader);
-    saveAsButton.setCommandToTrigger(commandManager, CommandIDs::savePresetFileAs, true);
+	setButtonImages(saveAsButton, "SaveAs_button_off.png", "SaveAs_button_over.png", "SaveAs_button_on.png", Colours::transparentBlack, imageLoader);
+	saveAsButton.setCommandToTrigger(commandManager, CommandIDs::savePresetFileAs, true);
     addAndMakeVisible(saveAsButton);
 
-    setButtonImages(applyChangesButton, "confirmOff", "confirmOver", "confirmOn", Colours::transparentBlack, imageLoader);
-    applyChangesButton.setCommandToTrigger(commandManager, CommandIDs::applyPresetFileChanges, true);
+	setButtonImages(applyChangesButton, "confirm_button_off.png", "confirm_button_over.png", "confirm_button_on.png", Colours::transparentBlack, imageLoader);
+	applyChangesButton.setCommandToTrigger(commandManager, CommandIDs::applyPresetFileChanges, true);
     addAndMakeVisible(applyChangesButton);
 
-    setButtonImages(discardChangesButton, "closeOff", "closeOver", "closeOn", Colours::transparentBlack, imageLoader);
-    discardChangesButton.setCommandToTrigger(commandManager, CommandIDs::discardPresetFileChanges, true);
+	setButtonImages(discardChangesButton, "Close_button_off.png", "Close_button_over.png", "Close_button_on.png", Colours::transparentBlack, imageLoader);
+	discardChangesButton.setCommandToTrigger(commandManager, CommandIDs::discardPresetFileChanges, true);
     addAndMakeVisible(discardChangesButton);
 
-    setButtonImages(undoButton, "undoOff", "undoOver", "undoOn", Colours::transparentBlack, imageLoader);
-    undoButton.setCommandToTrigger(commandManager, CommandIDs::undo, true);
+	setButtonImages(undoButton, "Undo_button_off.png", "Undo_button_over.png", "Undo_button_on.png", Colours::transparentBlack, imageLoader);
+	undoButton.setCommandToTrigger(commandManager, CommandIDs::undo, true);
     addAndMakeVisible(undoButton);
 
-    setButtonImages(redoButton, "redoOff", "redoOver", "redoOn", Colours::transparentBlack, imageLoader);
-    redoButton.setCommandToTrigger(commandManager, CommandIDs::redo, true);
+	setButtonImages(redoButton, "Redo_button_off.png", "Redo_button_over.png", "Redo_button_on.png", Colours::transparentBlack, imageLoader);
+	redoButton.setCommandToTrigger(commandManager, CommandIDs::redo, true);
     addAndMakeVisible(redoButton);
 
     treeSizeConstrainer.setMinimumWidth(200);
@@ -384,8 +384,8 @@ void PresetManager::paint(Graphics& g)
         g.fillRect(0, 0, getWidth(), 40);
         g.fillRect(0, 0, getWidth(), getHeight() - 40);
 
-        g.drawImageAt(imageLoader->loadImage("divider", String()), 174, 8);
-        g.drawImageAt(imageLoader->loadImage("divider", String()), 268, 8);
+        g.drawImageAt(imageLoader->loadImage("divider.png", String()), 174, 8);
+        g.drawImageAt(imageLoader->loadImage("divider.png", String()), 268, 8);
     }
 }
 
