@@ -684,32 +684,38 @@ void BCMComponent::setupLabel(XmlElement& labelXML)
 
 void BCMComponent::setupTextButton(XmlElement& textButtonXML)
 {
-    if (showInThisContext(textButtonXML))
-    {
-        TextButtonProperties* parentProperties = scopeSyncGUI.defaultTextButtonProperties;
-        
-        String wtId = textButtonXML.getStringAttribute("wtid");
+	if (!showInThisContext(textButtonXML))
+		return;
 
-        if (wtId.isNotEmpty())
+	TextButtonProperties* parentProperties = scopeSyncGUI.defaultTextButtonProperties;
+        
+    String wtId = textButtonXML.getStringAttribute("wtid");
+
+    if (wtId.isNotEmpty())
+    {
+        for (int i = 0; i < scopeSyncGUI.textButtonTemplates.size(); i++)
         {
-            for (int i = 0; i < scopeSyncGUI.textButtonTemplates.size(); i++)
+            if (scopeSyncGUI.textButtonTemplates[i]->widgetTemplateId.equalsIgnoreCase(wtId))
             {
-                if (scopeSyncGUI.textButtonTemplates[i]->widgetTemplateId.equalsIgnoreCase(wtId))
-                {
-                    parentProperties = scopeSyncGUI.textButtonTemplates[i];
-                    break;
-                }
+                parentProperties = scopeSyncGUI.textButtonTemplates[i];
+                break;
             }
         }
-
-        TextButtonProperties textButtonProperties(textButtonXML, *parentProperties);
-        BCMTextButton* textButton;
-    
-        addAndMakeVisible (textButton = new BCMTextButton(scopeSyncGUI, textButtonProperties.name));
-
-        textButton->applyProperties(textButtonProperties);
-        textButtons.add(textButton);
     }
+
+    TextButtonProperties textButtonProperties(textButtonXML, *parentProperties);
+	const StringArray hiddenWhenReadOnly = StringArray::fromTokens("showconfigurationmanager,newconfiguration,chooseconfiguration,reloadconfiguration", ",", "");
+	
+	if (scopeSyncGUI.getScopeSync().configurationIsReadOnly() &&
+		hiddenWhenReadOnly.contains(textButtonProperties.name, true))
+		return;
+
+    BCMTextButton* textButton;
+    
+    addAndMakeVisible (textButton = new BCMTextButton(scopeSyncGUI, textButtonProperties.name));
+
+    textButton->applyProperties(textButtonProperties);
+    textButtons.add(textButton);
 }
 
 void BCMComponent::setupComboBox(XmlElement& comboBoxXML)

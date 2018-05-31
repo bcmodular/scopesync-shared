@@ -89,6 +89,17 @@ String ipAddressFromHostName(StringRef hostName, StringRef port)
 }
 #endif // __DLL_EFFECT__
 
+int getBinaryDataIndexFromFileName(StringRef fileName)
+{
+	for (int i = 0; i < BinaryData::namedResourceListSize; i++)
+	{
+		if (String(BinaryData::originalFilenames[i]).equalsIgnoreCase(fileName))
+			return i;		
+	}
+
+	return -1;
+}
+
 /* =========================================================================
  * PropertyListBuilder
  */

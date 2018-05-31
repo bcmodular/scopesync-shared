@@ -195,7 +195,8 @@ Configuration::Configuration(): FileBasedDocument(configurationFileExtension,
                                                       "Save Configuration"),
                                                   configurationRoot("configuration"),
                                                   layoutXml(Ids::layout),
-                                                  loaderLayoutXml(Ids::layout)
+                                                  loaderLayoutXml(Ids::layout),
+												  loadedFromFile(false)
 {
     lastFailedFile = File();
 	switchToLoader();
@@ -211,6 +212,7 @@ void Configuration::switchToLoader()
 {
 	loadLoaderConfiguration();
 	setConfigurationRoot(loaderConfigurationRoot);
+	setMissingDefaultValues();
 	loadLoaderLayout();
 	layoutXml = loaderLayoutXml;
 	layoutLoaded = true;
@@ -258,15 +260,33 @@ const char* Configuration::configurationFileExtension = ".configuration";
 
 void Configuration::loadLoaderConfiguration()
 {
-	String xmlToParse(BinaryData::empty_configuration);
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(xmlToParse));
+	ScopedPointer<XmlElement> xml;
+	int binaryDataIndex = -1;
 
+#ifdef LOADER_CONFIGURATION
+	binaryDataIndex = getBinaryDataIndexFromFileName(LOADER_CONFIGURATION);
+#endif
+
+	if (binaryDataIndex != -1)
+	{
+		int numBytes;
+		xml = XmlDocument::parse(BinaryData::getNamedResource(BinaryData::namedResourceList[binaryDataIndex], numBytes));
+	}
+	else
+	{
+		String xmlToParse(BinaryData::empty_configuration);
+		xml = XmlDocument::parse(xmlToParse);
+	}
+	
     ValueTree newTree (ValueTree::fromXml(*xml));
-    newTree.setProperty(Ids::name, "No configuration loaded...", nullptr);
-    newTree.setProperty(Ids::readOnly, true, nullptr);
-    newTree.setProperty(Ids::excludeFromChooser, true, nullptr);
-    newTree.setProperty(Ids::UID, -1, nullptr);
 
+	if (binaryDataIndex == -1)
+	{
+		newTree.setProperty(Ids::name, "No configuration loaded...", nullptr);
+		newTree.setProperty(Ids::excludeFromChooser, true, nullptr);
+	}
+	
+	newTree.setProperty(Ids::readOnly, true, nullptr);
     loaderConfigurationRoot = newTree;
 }
 
@@ -280,12 +300,28 @@ ValueTree Configuration::getEmptyConfiguration() const
 
 void Configuration::loadLoaderLayout()
 {
-    ScopedPointer<XmlElement> configElement;
+    ScopedPointer<XmlElement> layoutElement;
+	int binaryDataIndex = -1;
 
-	String xmlToParse(BinaryData::loader_layout);
-    XmlDocument configurationDocument(xmlToParse);
-    configElement   = configurationDocument.getDocumentElement();
-    loaderLayoutXml = *configElement;
+#ifdef LOADER_LAYOUT
+	binaryDataIndex = getBinaryDataIndexFromFileName(LOADER_LAYOUT);
+#endif
+
+	if (binaryDataIndex != -1)
+	{
+		int numBytes;
+		layoutElement = XmlDocument::parse(BinaryData::getNamedResource(BinaryData::namedResourceList[binaryDataIndex], numBytes));
+
+		DBG("Configuration::loadLoaderLayout - XML: ");
+		DBG(layoutElement->createDocument(String()));
+	}
+	else
+	{
+		String xmlToParse(BinaryData::loader_layout);
+		layoutElement = XmlDocument::parse(xmlToParse);
+	}	
+
+    loaderLayoutXml = *layoutElement;
 }
 
 String Configuration::getDocumentTitle()
@@ -313,7 +349,7 @@ PropertiesFile& Configuration::getConfigurationProperties() const
 
 Result Configuration::loadDocument(const File& file)
 {
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(file));
+	ScopedPointer<XmlElement> xml(XmlDocument::parse(file));
 
     if (xml == nullptr || !(xml->hasTagName(Ids::configuration)))
         return Result::fail("Not a valid ScopeSync Configuration");
@@ -325,7 +361,8 @@ Result Configuration::loadDocument(const File& file)
 
     setConfigurationRoot(newTree);
     
-    layoutLoaded = false;
+    layoutLoaded   = false;
+	loadedFromFile = true;
 
     return Result::ok();
 }
@@ -713,6 +750,11 @@ void Configuration::addStyleOverrideToAll(const Identifier& componentType,
             addStyleOverride(componentType, componentLookup[i]->name, widgetTemplateId, styleOverride, -1, um);
         }
     }
+}
+
+bool Configuration::configurationLoadedFromFile()
+{ 
+	return loadedFromFile; 
 }
 
 Result Configuration::saveDocument (const File& /* file */)

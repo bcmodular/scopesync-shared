@@ -186,6 +186,8 @@ public:
                                const String&     widgetTemplateId,
                                ValueTree&        newStyleOverride,
                                UndoManager*      um) const;
+
+	bool configurationLoadedFromFile();
     
     static ValueTree getDefaultParameter();
 
@@ -213,6 +215,7 @@ private:
     String     lastErrorDetails;
 
     bool       layoutLoaded;
+	bool       loadedFromFile;
     
     static const char*  configurationFileExtension;
 

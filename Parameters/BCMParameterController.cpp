@@ -139,6 +139,8 @@ void BCMParameterController::setupHostParameters()
 		}
 		else
 		{
+			// TODO: Here is where we should add extra parameters.
+			// In the case of dynamic parameter counts, we'll need to add all of them here
 			break;
 		}
     }

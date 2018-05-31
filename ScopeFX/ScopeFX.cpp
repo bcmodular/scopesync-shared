@@ -220,6 +220,10 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
 	else
 		deviceInstance = scopeSync->getDeviceInstance();
 	
+	// Where the configuration is embedded into the module, we're never interested in updates to the Cfg UID from Scope
+	if (!scopeSync->getConfiguration().configurationLoadedFromFile())
+		ignoreConfigUIDUpdates = 1;
+
 	// Possible scenarios re. scopeConfigUID and configUID:
 	//   1) They're the same as each other, which means that no new configuration has been loaded through the Configuration Manager
 	//      or Scope (or a new one is not completely loaded)

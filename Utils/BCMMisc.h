@@ -34,6 +34,8 @@ String createAlphaNumericUID();
 
 String ipAddressFromHostName(StringRef hostName, StringRef port);
 
+int getBinaryDataIndexFromFileName(StringRef fileName);
+
 /* =========================================================================
  * PropertyListBuilder: Utility class to help set up Property Lists
  */

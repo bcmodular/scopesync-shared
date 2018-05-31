@@ -27,6 +27,7 @@
 
 #include "ImageLoader.h"
 #include "../Components/BCMLookAndFeel.h"
+#include "../Utils/BCMMisc.h"
 
 ImageLoader::ImageLoader()
 {
@@ -40,16 +41,15 @@ ImageLoader::~ImageLoader()
 Image ImageLoader::loadImage(const String& imageFileName, const String& directoryPath) const
 {
 	// Firstly look in BinaryData to see if we can find the Image there based on original filename
-    for (int i = 0; i < BinaryData::namedResourceListSize; i++)
-    {
-		if (String(BinaryData::originalFilenames[i]).equalsIgnoreCase(imageFileName))
-		{
-			int sizeOfImage;
-			const char* image = BinaryData::getNamedResource(BinaryData::namedResourceList[i], sizeOfImage);
-            return ImageCache::getFromMemory(image, sizeOfImage);
-        }
-    }
+	int binaryDataIndex = getBinaryDataIndexFromFileName(imageFileName);
 
+    if (binaryDataIndex != -1)
+	{
+		int sizeOfImage;
+		const char* image = BinaryData::getNamedResource(BinaryData::namedResourceList[binaryDataIndex], sizeOfImage);
+        return ImageCache::getFromMemory(image, sizeOfImage);
+    }
+    
 	// We didn't find it in the BinaryData, so now check the filesystem
     if (directoryPath.isNotEmpty())
     {
