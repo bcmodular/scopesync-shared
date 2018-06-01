@@ -235,7 +235,6 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
 
 bool BCMTextButton::setupFixedButton(TextButtonProperties& props)
 {
-	// TODO: This needs to check whether it's actually a fixed parameter...
 	BCMParameter* bcmParameter(scopeSync.getParameterController()->getFixedParameterByName(props.name));
 
 	if (bcmParameter != nullptr)

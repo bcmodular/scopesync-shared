@@ -42,8 +42,10 @@ parameterValueStore("parametervalues"), scopeSync(owner)
 void BCMParameterController::initialise()
 {
 #ifndef __DLL_EFFECT__
-	for (int i = 0; i < 512; i++)
+	#ifdef FIXED_PARAMETER_COUNT
+	for (int i = 0; i < FIXED_PARAMETER_COUNT; i++)
 		scopeSync->getPluginProcessor()->addParameter(new HostParameter());
+	#endif
 #else
 	const StringArray scopeFixedParameters = StringArray::fromTokens("DUMMY,X,Y,Show,Show Preset Window,Show Patch Window,Mono Effect,BypassEffect,Show Shell Preset Window,Voice Count,MIDI Channel,Device Type,MIDI Activity",",", "");
     
@@ -128,7 +130,7 @@ void BCMParameterController::setupHostParameters()
 		int numPluginParameters = pluginParameters.size();
 
 		// Try to bind to existing parameters first
-		if (i < 512)
+		if (i < numPluginParameters)
 		{
 			DBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", binding to existing param: " + String(i));
 			hostParameter = static_cast<HostParameter*>(pluginParameters[i]);
@@ -139,9 +141,14 @@ void BCMParameterController::setupHostParameters()
 		}
 		else
 		{
-			// TODO: Here is where we should add extra parameters.
+			// Add extra parameters.
 			// In the case of dynamic parameter counts, we'll need to add all of them here
-			break;
+			DBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", adding new parameter: " + String(i));
+			scopeSync->getPluginProcessor()->addParameter(hostParameter = new HostParameter());
+			hostParameter->setBCMParameter(dynamicParameter);
+			dynamicParameter->setHostParameter(hostParameter);
+
+			++i;
 		}
     }
 #endif // __DLL_EFFECT__

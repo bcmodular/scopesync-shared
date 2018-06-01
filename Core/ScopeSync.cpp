@@ -316,8 +316,6 @@ void ScopeSync::applyConfiguration(bool storeCurrentValues)
 	stopTimer();
 #endif // __DLL_EFFECT__
 
-	// TODO: Disable OSC here?
-	
 	setGUIEnabled(false);
     
     systemError        = String();
