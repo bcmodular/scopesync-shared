@@ -71,7 +71,7 @@ ScopeSync::~ScopeSync()
 #ifdef __DLL_EFFECT__
 	// Stop listening for Configuration UID updates from Scope
 	stopTimer();
-#endif __DLL_EFFECT__
+#endif // __DLL_EFFECT__
 
 	if (configurationManagerWindow != nullptr)
 	{
@@ -110,7 +110,7 @@ void ScopeSync::timerCallback()
 
 	if (configuration->getConfigurationUID() != scopeConfigUID)
 		changeConfigurationByUID(scopeConfigUID);
-#endif __DLL_EFFECT__
+#endif // __DLL_EFFECT__
 }
 
 bool ScopeSync::deviceInstanceInUse(int uid, ScopeSync* currentInstance)
