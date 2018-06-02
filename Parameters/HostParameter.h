@@ -48,7 +48,8 @@ public:
 	// Other overrides for AudioProcessorParameter
 	int  getNumSteps() const override;
 	bool isDiscrete() const override;
-	String getText(float value, int);
+	String getText(float value, int) const override;
+	bool isAutomatable() const override;
 
 private:
 	JUCE_DECLARE_WEAK_REFERENCEABLE(HostParameter)

@@ -285,8 +285,11 @@ void Configuration::loadLoaderConfiguration()
 		newTree.setProperty(Ids::name, "No configuration loaded...", nullptr);
 		newTree.setProperty(Ids::excludeFromChooser, true, nullptr);
 	}
+	else
+	{
+		newTree.setProperty(Ids::readOnly, true, nullptr);
+	}
 	
-	newTree.setProperty(Ids::readOnly, true, nullptr);
     loaderConfigurationRoot = newTree;
 }
 
@@ -653,8 +656,11 @@ ValueTree Configuration::getDefaultParameter()
     defaultParameter.setProperty(Ids::uiRangeMin,       0,             nullptr);
     defaultParameter.setProperty(Ids::uiRangeMax,       100,           nullptr);
     defaultParameter.setProperty(Ids::uiRangeInterval,  0.0001,        nullptr);
-    defaultParameter.setProperty(Ids::uiSuffix,         String(), nullptr);
-    
+	defaultParameter.setProperty(Ids::uiSuffix,         String(), nullptr);
+	defaultParameter.setProperty(Ids::editableInPluginUI, true, nullptr);
+	defaultParameter.setProperty(Ids::editableInScopeUI, true, nullptr);
+	defaultParameter.setProperty(Ids::pluginAutomatable, true, nullptr);
+
     return defaultParameter;
 }
 
@@ -677,6 +683,9 @@ ValueTree Configuration::getDefaultFixedParameter()
     defaultParameter.setProperty(Ids::uiRangeMax,       2147483647,    nullptr);
     defaultParameter.setProperty(Ids::uiRangeInterval,  1,             nullptr);
     defaultParameter.setProperty(Ids::uiSuffix,         String(), nullptr);
+	defaultParameter.setProperty(Ids::editableInPluginUI, true, nullptr);
+	defaultParameter.setProperty(Ids::editableInScopeUI,  true, nullptr);
+	defaultParameter.setProperty(Ids::pluginAutomatable, false, nullptr);
 
     return defaultParameter;
 }

@@ -56,7 +56,10 @@ BCMParameter::BCMParameter(ValueTree parameterDefinition, BCMParameterController
 	  uiResetValue(parameterDefinition.getProperty(Ids::uiResetValue)),
       uiSkewFactor(parameterDefinition.getProperty(Ids::uiSkewFactor)),
 	  uiSuffix(parameterDefinition.getProperty(Ids::uiSuffix).toString()),
-      skewUIOnly(parameterDefinition.getProperty(Ids::skewUIOnly))
+      skewUIOnly(parameterDefinition.getProperty(Ids::skewUIOnly)),
+	  editableInPluginUI(parameterDefinition.getProperty(Ids::editableInPluginUI, true)),
+	  editableInScopeUI(parameterDefinition.getProperty(Ids::editableInScopeUI, true)),
+	  pluginAutomatable(parameterDefinition.getProperty(Ids::pluginAutomatable, true))
 {
     if (uiRangeMin == uiRangeMax)
         uiRangeMax = uiRangeMin + 1.0f;

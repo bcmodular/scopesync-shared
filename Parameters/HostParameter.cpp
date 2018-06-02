@@ -92,4 +92,20 @@ bool HostParameter::isDiscrete() const
 	return false;
 }
 
+String HostParameter::getText(float value, int) const
+{
+	if (bcmParameter != nullptr)
+		return String(bcmParameter->convertHostToUIValue(value));
+
+	return String();
+}
+
+bool HostParameter::isAutomatable() const
+{
+	if (bcmParameter != nullptr)
+		return bcmParameter->isAutomatable();
+
+	return true;
+}
+
 #endif // __DLL_EFFECT__

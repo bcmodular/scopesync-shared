@@ -32,6 +32,7 @@
 #include "../Comms/OSCServer.h"
 #include "../Parameters/ScopeIDs.h"
 #include "../Parameters/ScopeOSCParameter.h"
+#include "../Core/ScopeSyncApplication.h"
 
 class BCMParameterController;
 #ifndef __DLL_EFFECT__
@@ -84,6 +85,9 @@ public:
     
     void setHostValue(float newValue, bool forceUpdate = false);
     void setUIValue(float newValue);
+
+	bool isEditableInUI() { return ScopeSyncApplication::inPluginContext() ? editableInPluginUI : editableInScopeUI; }
+	bool isAutomatable() const { return pluginAutomatable; }
 	
 	void setParameterValues(ParameterUpdateSource updateSource, double newLinearNormalisedValue, double newUIValue, bool forceUpdate = false);
 
@@ -139,6 +143,9 @@ private:
     double    uiSkewFactor;
 	String    uiSuffix;
     bool      skewUIOnly;
+	bool      editableInScopeUI;
+	bool      editableInPluginUI;
+	bool      pluginAutomatable;
 };
 
 #endif  // BCMPARAMETER_H_INCLUDED

@@ -275,6 +275,12 @@ void ParameterPanel::createDescriptionProperties(PropertyListBuilder& props, Und
 
     props.add(new IntRangeProperty(valueTree.getPropertyAsValue(Ids::scopeParamGroup, &undoManager), "Scope Param Group"), "Parameter Group of parameter in Scope");
     props.add(new IntRangeProperty(valueTree.getPropertyAsValue(Ids::scopeParamId, &undoManager),    "Scope Param ID"),    "Parameter ID for parameter in Scope");
+	
+	if (!valueTree.hasProperty(Ids::pluginAutomatable))
+		valueTree.setProperty(Ids::pluginAutomatable, true, nullptr);
+
+	props.add(new BooleanPropertyComponent(valueTree.getPropertyAsValue(Ids::pluginAutomatable, &undoManager), "Plugin can automate", String()), "Should the plugin version present this parameter as automatable by the host/DAW?");
+
 }
 
 void ParameterPanel::createScopeProperties(PropertyListBuilder& props, UndoManager& undoManager, ValueTree& valueTree, int valueType)
@@ -327,7 +333,18 @@ void ParameterPanel::createUIProperties(PropertyListBuilder& props, UndoManager&
     }
 
     props.add(new FltProperty             (valueTree.getPropertyAsValue(Ids::uiRangeInterval, &undoManager), "Value Interval"),                     valIntTooltip);
-    props.add(new BooleanPropertyComponent(valueTree.getPropertyAsValue(Ids::valueType,       &undoManager), "Use discrete values", String()), "Use a set of discrete parameter values relating to specific control settings");
+	
+	if (!valueTree.hasProperty(Ids::editableInScopeUI))
+		valueTree.setProperty(Ids::editableInScopeUI, true, nullptr);
+
+	props.add(new BooleanPropertyComponent(valueTree.getPropertyAsValue(Ids::editableInScopeUI, &undoManager),  "Editable in Scope UI", String()),  "Should this parameter be editable in the Scope UI?");
+	
+	if (!valueTree.hasProperty(Ids::editableInPluginUI))
+		valueTree.setProperty(Ids::editableInPluginUI, true, nullptr);
+
+	props.add(new BooleanPropertyComponent(valueTree.getPropertyAsValue(Ids::editableInPluginUI, &undoManager), "Editable in Plugin UI", String()), "Should this parameter be editable in the Plugin UI?");
+	
+	props.add(new BooleanPropertyComponent(valueTree.getPropertyAsValue(Ids::valueType,       &undoManager), "Use discrete values", String()), "Use a set of discrete parameter values relating to specific control settings");
 }
 
 void ParameterPanel::childBoundsChanged(Component* child)

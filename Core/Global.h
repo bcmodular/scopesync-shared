@@ -59,6 +59,9 @@ namespace Ids
     DECLARE_ID(uiSkewFactor);
     DECLARE_ID(uiSkewMidpoint);
     DECLARE_ID(skewUIOnly);
+	DECLARE_ID(editableInScopeUI);
+	DECLARE_ID(editableInPluginUI);
+	DECLARE_ID(pluginAutomatable);
     DECLARE_ID(valueType);
     DECLARE_ID(settings);
     DECLARE_ID(setting);

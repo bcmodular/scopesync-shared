@@ -318,7 +318,9 @@ ValueTree PresetFile::getDefaultPreset()
     defaultPreset.setProperty(Ids::uiRangeMin,       0,             nullptr);
     defaultPreset.setProperty(Ids::uiRangeMax,       100,           nullptr);
     defaultPreset.setProperty(Ids::uiRangeInterval,  0.0001,        nullptr);
-    defaultPreset.setProperty(Ids::uiSuffix,         String(), nullptr);
+    defaultPreset.setProperty(Ids::uiSuffix,         String(),      nullptr);
+	defaultPreset.setProperty(Ids::editableInPluginUI, true,        nullptr);
+	defaultPreset.setProperty(Ids::editableInScopeUI, true,         nullptr);
     
     return defaultPreset;
 }
