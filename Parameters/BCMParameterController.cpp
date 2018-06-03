@@ -126,6 +126,13 @@ void BCMParameterController::setupHostParameters()
 	// Loop through all the dynamic parameters and attach them to a host/plugin parameter until we run out of host parameters
     for (auto dynamicParameter : dynamicParameters)
     {
+		if (!dynamicParameter->isAutomatable())
+		{
+			// Although we tell DAWs not to include these in the list, some ignore this (e.g. Ableton), which is
+			// why we need to explicitly ignore them here.
+			continue;
+		}
+
 		HostParameter* hostParameter;
 		int numPluginParameters = pluginParameters.size();
 
@@ -147,7 +154,7 @@ void BCMParameterController::setupHostParameters()
 			scopeSync->getPluginProcessor()->addParameter(hostParameter = new HostParameter());
 			hostParameter->setBCMParameter(dynamicParameter);
 			dynamicParameter->setHostParameter(hostParameter);
-
+			
 			++i;
 		}
     }

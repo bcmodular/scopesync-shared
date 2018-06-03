@@ -44,7 +44,6 @@ BCMParameter::BCMParameter(ValueTree parameterDefinition, BCMParameterController
       name(parameterDefinition.getProperty(Ids::name).toString()),
       shortDescription(parameterDefinition.getProperty(Ids::shortDescription).toString()),
       fullDescription(parameterDefinition.getProperty(Ids::fullDescription).toString()),
-      readOnly(false),
       definition(parameterDefinition),
       settings(parameterDefinition.getChildWithName(Ids::settings)),
 	  hostIdx(-1),

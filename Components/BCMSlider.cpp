@@ -115,8 +115,8 @@ void BCMSlider::applyProperties(SliderProperties& props)
         setRange(rangeMin, rangeMax, rangeInt);
         setTextValueSuffix(uiSuffix);
 
-        setDoubleClickReturnValue(!parameter->isReadOnly(), parameter->getUIResetValue());
-        setTextBoxIsEditable(!parameter->isReadOnly() ? !props.textBoxReadOnly : false);
+        setDoubleClickReturnValue(parameter->isEditableInUI(), parameter->getUIResetValue());
+        setTextBoxIsEditable(parameter->isEditableInUI() ? !props.textBoxReadOnly : false);
 
         setSkewFactor(parameter->getUISkewFactor());
         
@@ -149,7 +149,7 @@ bool BCMSlider::setupFixedSlider(SliderProperties& props)
 		setTooltip(props.name);
 		setPopupMenuEnabled(false);
 
-		setTextBoxIsEditable(!parameter->isReadOnly() ? !props.textBoxReadOnly : false);
+		setTextBoxIsEditable(parameter->isEditableInUI() ? !props.textBoxReadOnly : false);
 
 		return true;
 	}
@@ -200,7 +200,7 @@ void BCMSlider::mouseDown(const MouseEvent& event)
         showPopupMenu();
     else
     {
-        if (!hasParameter() || !parameter->isReadOnly())
+        if (!hasParameter() || parameter->isEditableInUI())
             Slider::mouseDown(event);
     }
 }

@@ -54,6 +54,8 @@ float HostParameter::getDefaultValue() const
 String HostParameter::getName(int maximumStringLength) const
 {
 	// TODO: need to do something with the maximumStringLength
+	(void)maximumStringLength;
+
 	if (bcmParameter != nullptr)
 		return bcmParameter->getFullDescription();
 	

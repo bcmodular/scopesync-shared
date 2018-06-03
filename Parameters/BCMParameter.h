@@ -81,7 +81,6 @@ public:
 
     static bool checkDiscrete(ValueTree& definition);
     bool isDiscrete() const { return paramDiscrete; }
-    bool isReadOnly() const { return readOnly; }
     
     void setHostValue(float newValue, bool forceUpdate = false);
     void setUIValue(float newValue);
@@ -125,8 +124,7 @@ private:
     String    shortDescription;
     String    fullDescription;
     bool      oscEnabled;
-	bool	  readOnly;
-    ValueTree definition;
+	ValueTree definition;
     ValueTree settings;
     Value     uiValue;
     Value     linearNormalisedValue;

@@ -196,7 +196,8 @@ Configuration::Configuration(): FileBasedDocument(configurationFileExtension,
                                                   configurationRoot("configuration"),
                                                   layoutXml(Ids::layout),
                                                   loaderLayoutXml(Ids::layout),
-												  loadedFromFile(false)
+												  loadedFromFile(false),
+												  showEditToolbar(true)
 {
     lastFailedFile = File();
 	switchToLoader();
@@ -289,7 +290,9 @@ void Configuration::loadLoaderConfiguration()
 	{
 		newTree.setProperty(Ids::readOnly, true, nullptr);
 	}
-	
+
+	showEditToolbar = false;
+
     loaderConfigurationRoot = newTree;
 }
 
@@ -366,6 +369,11 @@ Result Configuration::loadDocument(const File& file)
     
     layoutLoaded   = false;
 	loadedFromFile = true;
+
+	if (configurationRoot.getProperty(Ids::readOnly, false))
+		showEditToolbar = false;
+	else
+		showEditToolbar = true;
 
     return Result::ok();
 }

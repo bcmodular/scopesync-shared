@@ -427,6 +427,9 @@ void BCMParameterWidget::setParameter(BCMParameter* param)
 	{
 		parameter = param;
 		mapsToParameter = true;
+
+		if (!parameter->isEditableInUI())
+			parentWidget->setInterceptsMouseClicks(false, false);
 	}
 }
 

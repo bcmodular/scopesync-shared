@@ -192,6 +192,8 @@ public:
     static ValueTree getDefaultParameter();
 
     static ValueTree getDefaultFixedParameter();
+
+	bool shouldShowEditToolbar() { return showEditToolbar; };
     
 private:
     ValueTree  configurationRoot;
@@ -216,6 +218,7 @@ private:
 
     bool       layoutLoaded;
 	bool       loadedFromFile;
+	bool       showEditToolbar;
     
     static const char*  configurationFileExtension;
 

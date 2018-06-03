@@ -337,7 +337,7 @@ void BCMComponent::applyProperties(XmlElement& componentXML, const String& layou
 
     if (mainComponent)
     {
-        if (!scopeSync.configurationIsReadOnly())
+        if (scopeSync.getConfiguration().shouldShowEditToolbar())
         {
             editToolbar = new EditToolbar(scopeSyncGUI.getScopeSync(), componentBounds.width, 40);
         

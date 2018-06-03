@@ -215,9 +215,6 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
                 
         }
 
-		if (parameter->isReadOnly())
-			setInterceptsMouseClicks(false, false);
-
         parameterValue.addListener(this);
     }
     else
