@@ -445,6 +445,7 @@ bool Configuration::replaceConfiguration(StringRef newFileName)
             setFile(File());
             lastFailedFile = File();
             setChangedFlag(false);
+			showEditToolbar = false;
             return true;
         }
     }
