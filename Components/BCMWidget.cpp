@@ -70,11 +70,27 @@ void BCMWidget::applyBounds() const
 	if (componentBounds.boundsType == BCMComponentBounds::relativeRectangle)
 	{
 		DBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
+		scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
+		
+		if (parentWidget->getParentComponent() != nullptr)
+		{
+			DBG("BCMWidget::applyBounds - component's parent: " + parentWidget->getParentComponent()->getComponentID());
+			scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getParentComponent()->getComponentID());
+		}
+		else
+		{
+			DBG("BCMWidget::applyBounds - component has no parent");
+			scopeSync.logMessage("BCMWidget::applyBounds - component has no parent");
+		}
+
 		RelativeRectangle rectBounds(componentBounds.relativeRectangleString);
 		rectBounds.applyToComponent(*parentWidget);
 		DBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID() + ", set relativeRectangle bounds: " + componentBounds.relativeRectangleString);
+		scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getComponentID() + ", set relativeRectangle bounds: " + componentBounds.relativeRectangleString);
+
 		DBG("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
-		
+		scopeSync.logMessage("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
+
 		if (debugWidgetPosition)
 		{
 			String position("Component: " + parentWidget->getComponentID());
@@ -97,6 +113,10 @@ void BCMWidget::applyBounds() const
 			componentBounds.width,
 			componentBounds.height
 		);
+
+		scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
+		scopeSync.logMessage("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
+
 	}
 	else
 		parentWidget->setBoundsInset(BorderSize<int>(0));

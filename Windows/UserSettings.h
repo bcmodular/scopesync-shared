@@ -120,6 +120,7 @@ private:
     Value useImageCache;
     Value tooltipDelayTime;
 	Value autoRebuildLibrary;
+	Value logGUIBuild;
 		  
 	Value pluginHost;
 	Value pluginListenerPort;
@@ -187,7 +188,7 @@ private:
         bool rebuildConfigurations;
         bool rebuildLayouts;
         bool rebuildPresets;
-    
+		
         void updateLayoutLibrary(const Array<File>& layoutFiles);
         void updateConfigurationLibrary(const Array<File>& configurationFiles);
         void updatePresetLibrary(const Array<File>& presetFiles);

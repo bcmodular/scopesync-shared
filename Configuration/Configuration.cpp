@@ -597,7 +597,7 @@ void Configuration::updateParameterFromPreset(ValueTree& parameter, const ValueT
     parameter.removeProperty(Ids::presetFileAuthor, undoManager);
     parameter.removeProperty(Ids::presetFileBlurb, undoManager);
     parameter.removeProperty(Ids::blurb, undoManager);
-    parameter.removeProperty(Ids::filePath, undoManager);
+	parameter.removeProperty(Ids::filePath, undoManager);
     parameter.removeProperty(Ids::fileName, undoManager);
 
     parameter.removeAllChildren(undoManager);
