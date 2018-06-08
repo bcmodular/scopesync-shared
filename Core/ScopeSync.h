@@ -75,7 +75,11 @@ public:
     void referToDeviceInstance(Value& valueToLink) const;
 
 	void referToConfigurationUID(Value& valueToLink) const;
-    
+
+	int  getDeviceUID() const;
+	
+	bool configurationIsEmbedded();
+
 	static void reloadAllGUIs();
 	static void snapshotAll();
 	void snapshotFX();
@@ -146,6 +150,8 @@ public:
     void           hideAddConfigurationWindow();
     void           actionListenerCallback(const String& message) override;
 
+	void logMessage(StringRef messageText);
+
 private:
 
     /* ========================== Initialisation ============================== */
@@ -175,6 +181,7 @@ private:
     ScopedPointer<NewConfigurationWindow>     addConfigurationWindow;
 	
 	SharedResourcePointer<BCMDefaultLookAndFeel> defaultBCMLookAndFeel;
+	ScopedPointer<FileLogger> fileLogger;
 
     juce::Rectangle<int> newConfigWindowPosition;
     
@@ -196,7 +203,7 @@ private:
     Value systemErrorDetails; // Latest system error details text
 
 	Value deviceInstance;
-    
+	
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ScopeSync)
 };

@@ -29,7 +29,7 @@
 #include "../Utils/BCMMath.h"
 #include "../Core/Global.h"
 
-ScopeOSCParameter::ScopeOSCParameter(ScopeOSCParamID oscParamID, BCMParameter* owner, ValueTree parameterDefinition)
+ScopeOSCParameter::ScopeOSCParameter(ScopeOSCParamID oscParamID, BCMParameter* owner, ValueTree parameterDefinition, int deviceUID)
 	: parameter(owner),
       paramID(oscParamID), 
 	  deviceInstance(0),
@@ -37,7 +37,8 @@ ScopeOSCParameter::ScopeOSCParameter(ScopeOSCParamID oscParamID, BCMParameter* o
 	  maxValue(parameterDefinition.getProperty(Ids::scopeRangeMax)),
 	  dBRef(parameterDefinition.getProperty(Ids::scopeDBRef)),
 	  isListening(false),
-	  isSending(false)
+	  isSending(false),
+	  deviceUID(String(deviceUID))
 {
 	DBG("ScopeOSCParameter::ScopeOSCParameter - creating new parameter with paramID: " + String(paramID.paramGroup) + ":" + String(paramID.paramId));
 }
@@ -71,6 +72,11 @@ void ScopeOSCParameter::setConfigurationUID(int newUID)
 	DBG("ScopeOSCParameter::setConfigurationUID - " + String(newUID));
 	configurationUID = newUID;
 	registerAsListener();
+}
+
+void ScopeOSCParameter::setDeviceUID(int newUID)
+{
+	deviceUID = String(newUID);
 }
 
 void ScopeOSCParameter::sendCurrentValue()
@@ -194,9 +200,9 @@ String ScopeOSCParameter::getOSCPath() const
 	String address;
 
 	if (paramID.paramGroup == 0)
-		address = "/" + String(deviceInstance) + "/0/" + String(paramID.paramGroup) + "/" + String(paramID.paramId) + "/" + String(parameter->getConfigurationUID());
+		address = "/" + String(deviceInstance) + "/" + deviceUID + "/" + String(paramID.paramGroup) + "/" + String(paramID.paramId) + "/" + String(parameter->getConfigurationUID());
 	else
-		address = "/" + String(deviceInstance) + "/0/" + String(paramID.paramGroup) + "/" + String(paramID.paramId);
+		address = "/" + String(deviceInstance) + "/" + deviceUID + "/" + String(paramID.paramGroup) + "/" + String(paramID.paramId);
 	
 	DBG("ScopeOSCParameter::getScopeOSCPath = " + address);
 

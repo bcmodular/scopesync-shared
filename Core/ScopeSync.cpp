@@ -58,6 +58,11 @@ ScopeSync::ScopeSync(ScopeFX* owner)
 {
 	initialised = false;
     scopeSyncInstances.add(this);
+	
+	// TODO: Hook this in nicely. Needs to respond to changes to the logguibuild value.
+	//if (userSettings->getPropertyBoolValue("logguibuild", false))
+	//	fileLogger = FileLogger::createDefaultAppLogger("ScopeSyncFX", "ScopeSyncFX" + String(scopeSyncInstances.size()), "Logging some ScopeFX stuff...", -1);
+
     scopeFX = owner;
     initialise();
 
@@ -142,6 +147,19 @@ void ScopeSync::referToConfigurationUID(Value & valueToLink) const
     valueToLink.referTo(configurationID);
 }
 
+int ScopeSync::getDeviceUID() const
+{
+	return configuration->getConfigurationRoot().getProperty(Ids::deviceUID, 0);
+}
+
+bool ScopeSync::configurationIsEmbedded()
+{
+#ifdef LOADER_CONFIGURATION
+	return true;
+#else
+	return false;
+#endif
+}
 void ScopeSync::showConfigurationManager(int posX, int posY)
 {
     if (configurationManagerWindow == nullptr)
@@ -356,7 +374,11 @@ void ScopeSync::applyConfiguration(bool storeCurrentValues)
 #ifdef __DLL_EFFECT__
 	configurationID = configuration->getConfigurationUID();
 	scopeFX->setConfigUID(configurationID.getValue());
-	startTimer(200);
+
+	// Set a slightly longer timer here to make sure we don't
+	// pick up an update from Scope too early (esp. if the config
+	// loads slowly)
+	startTimer(1000);
 #endif // __DLL_EFFECT__
 }
 
@@ -476,6 +498,12 @@ void ScopeSync::actionListenerCallback(const String& message)
                 configurationManagerWindow->refreshContent();
         }
     }
+}
+
+void ScopeSync::logMessage(StringRef messageText)
+{
+	if (fileLogger != nullptr)
+		fileLogger->logMessage(messageText);
 }
 
 bool ScopeSync::newConfigIsInLocation()

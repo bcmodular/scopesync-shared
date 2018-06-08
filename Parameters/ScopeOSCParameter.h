@@ -36,7 +36,7 @@ class BCMParameter;
 class ScopeOSCParameter : OSCReceiver::ListenerWithOSCAddress<OSCReceiver::MessageLoopCallback>, Timer
 {
 public:
-	ScopeOSCParameter(ScopeOSCParamID oscParamID, BCMParameter* owner, ValueTree parameterDefinition);
+	ScopeOSCParameter(ScopeOSCParamID oscParamID, BCMParameter* owner, ValueTree parameterDefinition, int deviceUID);
 	~ScopeOSCParameter();
 
 	int  getValue() const {return intValue;}
@@ -47,6 +47,7 @@ public:
 	
 	void setDeviceInstance(int newUID);
 	void setConfigurationUID(int newUID);
+	void setDeviceUID(int newUID);
 	void sendCurrentValue();
 	void sendMinValue();
 	void sendMaxValue();
@@ -67,6 +68,8 @@ private:
 	
 	int deviceInstance{};
 	int configurationUID{};
+
+	String deviceUID;
     
 	int intValue{};
 	

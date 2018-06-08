@@ -89,6 +89,7 @@ private:
     ScopedPointer<ScopeFXGUI> scopeFXGUI;
 
 	int deviceInstance;
+	
 	std::atomic<int> snapshotValue;          // (Out only)     A change in this value will trigger a snapshot for any connected Scope OSCSender modules (meant for those connecting to the Plugin)
 	std::atomic<int> syncScopeValue;         // (Output only)  A change in this value wlll trigger a snapshot for any connected Scope OSCSender modules (meant for those connecting back to ScopeSync)
 	std::atomic<int> pluginHostOctet1;       // (Output only)  1st Octet of the Plugin Host IP (from User Settings)

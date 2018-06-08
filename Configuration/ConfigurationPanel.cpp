@@ -167,6 +167,7 @@ void ConfigurationPanel::rebuildProperties()
     props.add(new TextPropertyComponent(valueTree.getPropertyAsValue(Ids::librarySet, &undoManager), "Library Set", 256,  false), "Library Set for Configuration");
     props.add(new TextPropertyComponent(valueTree.getPropertyAsValue(Ids::author,     &undoManager), "Author",      256,  false), "Name of Configuration's creator");
     props.add(new TextPropertyComponent(valueTree.getPropertyAsValue(Ids::blurb,      &undoManager), "Blurb",       1024, true),  "Textual description of Configuration (shown in Chooser)");
+	props.add(new IntRangeProperty(valueTree.getPropertyAsValue(Ids::deviceUID,       &undoManager), "Device UID",  0),           "Device UID for another ScopeSync device to control (generally leave as 0)");
 
     propertyPanel.addSection("Configuration Settings", props.components);
 
@@ -175,8 +176,6 @@ void ConfigurationPanel::rebuildProperties()
     props.add(new TextPropertyComponent(layoutName,                                            "Layout Name",     256, false),    "Name of Layout");
     props.add(new TextPropertyComponent(layoutLibrarySet,                                      "Layout Library Set", 256, false), "Library Set containing Layout");
     propertyPanel.addSection("Layout Settings", props.components);
-    
-
 }
 
 void ConfigurationPanel::hideLayoutChooser()

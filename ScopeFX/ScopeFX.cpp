@@ -221,7 +221,7 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
 		deviceInstance = scopeSync->getDeviceInstance();
 	
 	// Where the configuration is embedded into the module, we're never interested in updates to the Cfg UID from Scope
-	if (!scopeSync->getConfiguration().configurationLoadedFromFile())
+	if (scopeSync->configurationIsEmbedded())
 		ignoreConfigUIDUpdates = 1;
 
 	// Possible scenarios re. scopeConfigUID and configUID:
@@ -267,8 +267,9 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
 	}
 	
 	// These are the In+Out parameters
-	asyncOut[OUTPAD_DEVICE_INSTANCE].itg         = deviceInstance;
-	asyncOut[OUTPAD_CONFIGUID].itg               = scopeConfigUID.load(std::memory_order_relaxed);
+	asyncOut[OUTPAD_DEVICE_INSTANCE].itg = deviceInstance;
+	asyncOut[OUTPAD_DEVICEUID].itg       = scopeSync->getDeviceUID();
+	asyncOut[OUTPAD_CONFIGUID].itg       = scopeConfigUID.load(std::memory_order_relaxed);
 	
 	// These are Out only (nice and easy!)
 	asyncOut[OUTPAD_SNAPSHOT].itg                = snapshotValue.load(std::memory_order_relaxed);

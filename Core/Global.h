@@ -45,7 +45,6 @@ namespace Ids
     DECLARE_ID(shortDescription);
     DECLARE_ID(fullDescription);
 	DECLARE_ID(uiSuffix);
-	DECLARE_ID(scopeDeviceUID);
 	DECLARE_ID(scopeParamGroup);
 	DECLARE_ID(scopeParamId);
 	DECLARE_ID(scopeCode);
@@ -140,6 +139,7 @@ namespace Ids
     DECLARE_ID(numParameters);
     DECLARE_ID(thumbnail);
     DECLARE_ID(blurb);
+	DECLARE_ID(deviceUID);
 
     // Preset XML top-level attribute names
     DECLARE_ID(presetFile);

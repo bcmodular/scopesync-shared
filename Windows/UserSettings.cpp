@@ -215,6 +215,9 @@ UserSettings::UserSettings()
 	autoRebuildLibrary.addListener(this);
 	autoRebuildLibrary.setValue(getPropertyBoolValue("autorebuildlibrary", false));
 	
+	logGUIBuild.addListener(this);
+	logGUIBuild.setValue(getPropertyBoolValue("logguibuild", false)); 
+	
     setupPanel();
 
     addAndMakeVisible(fileLocationsButton);
@@ -271,7 +274,9 @@ void UserSettings::setupPanel()
 	props.clear();
     props.add(new BooleanPropertyComponent(useImageCache,      "Image Cache",                   "Enabled"), "Disabling the Image Cache will mean that images will be refreshed immediately, but will slow down the GUI rendering");
 	props.add(new BooleanPropertyComponent(autoRebuildLibrary, "Automatically Rebuild Library", "Enabled"), "Automatically rebuild the relevant library on opening a Chooser window. Depending on size of library, enabling this may cause a performance problem.");
-	
+	// TODO: Add this back in when the feature is complete
+	//	props.add(new BooleanPropertyComponent(logGUIBuild,        "Log GUI Build",                 "Enabled"), "Log out information about the build of the GUI. This can be helpful when creating a layout to debug situations where elements aren't appearing, or appearing in the wrong place.");
+
     propertyPanel.addSection("Expert Settings", props.components, false);
 }
 
@@ -374,7 +379,12 @@ void UserSettings::valueChanged(Value& valueThatChanged)
 		setPropertyBoolValue("autorebuildlibrary", valueThatChanged.getValue());
 		return;
 	}
-	
+
+	if (valueThatChanged.refersToSameSourceAs(logGUIBuild))
+	{
+		setPropertyBoolValue("logguibuild", valueThatChanged.getValue());
+		return;
+	}
 	if (valueThatChanged.refersToSameSourceAs(pluginHost))
 	{
 		setPropertyValue("pluginhost", valueThatChanged.getValue());

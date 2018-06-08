@@ -38,7 +38,7 @@
 
 BCMParameter::BCMParameter(ValueTree parameterDefinition, BCMParameterController& pc,
 	ScopeOSCParamID scopeOSCParamID)
-    : scopeOSCParameter(scopeOSCParamID, this, parameterDefinition),
+    : scopeOSCParameter(scopeOSCParamID, this, parameterDefinition, pc.getScopeSync()->getDeviceUID()),
 	  updateSourceBlock(none),
 	  parameterController(pc),
       name(parameterDefinition.getProperty(Ids::name).toString()),
