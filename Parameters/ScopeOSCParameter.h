@@ -47,6 +47,7 @@ public:
 	
 	void setDeviceInstance(int newUID);
 	void setConfigurationUID(int newUID);
+	void setDeviceUID(int newUID);
 	void sendCurrentValue();
 	void sendMinValue();
 	void sendMaxValue();

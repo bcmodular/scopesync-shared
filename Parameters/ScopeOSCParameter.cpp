@@ -74,6 +74,11 @@ void ScopeOSCParameter::setConfigurationUID(int newUID)
 	registerAsListener();
 }
 
+void ScopeOSCParameter::setDeviceUID(int newUID)
+{
+	deviceUID = String(newUID);
+}
+
 void ScopeOSCParameter::sendCurrentValue()
 {
 	DBG("ScopeOSCParameter::sendCurrentValue - " + getOSCPath() + " " + String(intValue));

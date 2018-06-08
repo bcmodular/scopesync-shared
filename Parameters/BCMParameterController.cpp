@@ -172,6 +172,7 @@ void BCMParameterController::reset()
 	for (auto fixedParameter : fixedParameters)
 	{
 		DBG("BCMParameterController::reset - Added parameter: " + fixedParameter->getName());
+		fixedParameter->getScopeOSCParameter().setDeviceUID(scopeSync->getDeviceUID());
 		parameters.add(fixedParameter);
 		parametersByName.set(fixedParameter->getName(), fixedParameter);
 	}

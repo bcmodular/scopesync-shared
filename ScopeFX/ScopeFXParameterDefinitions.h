@@ -82,7 +82,7 @@ namespace ScopeFXParameterDefinitions {
 		{ DTYPE_INT, 1, 65535 },  // OUTPAD_SCOPESYNC_LISTENER_PORT
 		{ DTYPE_INT, FRAC_MIN, FRAC_MAX },  // OUTPAD_SYNC_SCOPE
         { DTYPE_INT, FRAC_MIN, FRAC_MAX },  // OUTPAD_CONFIGUID
-		{ DTYPE_INT, FRAC_MIN, FRAC_MAX },  // OUTPAD_DEVICEUID
+		{ DTYPE_INT, 0, FRAC_MAX },  // OUTPAD_DEVICEUID
 	};
 
     //--------------------------------------------------------------------------
@@ -102,7 +102,7 @@ namespace ScopeFXParameterDefinitions {
 		{ "sprt", "scopesync listener port" },
 		{ "sync", "sync Scope" },
 		{ "cfg",  "configuration uid" },
-		{ "dev",  "device uid" },
+		{ "duid", "device uid" },
 };
 
 	//--------------------------------------------------------------------------
