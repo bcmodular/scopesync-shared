@@ -87,7 +87,7 @@ void BCMSlider::applyProperties(SliderProperties& props)
 
     if (mapsToParameter)
     {
-		tooltip = parameter->getFullDescription(true);
+		tooltip = parameter->getFullDescription(scopeSync.showParamIDInTooltips());
 		
         String uiSuffix = String();
         parameter->getUIRanges(rangeMin, rangeMax, rangeInt, uiSuffix);

@@ -116,7 +116,7 @@ namespace Ids
     DECLARE_ID(layoutName);
     DECLARE_ID(layoutLibrarySet);
     DECLARE_ID(excludeFromChooser);
-    DECLARE_ID(filePath);
+	DECLARE_ID(filePath);
     DECLARE_ID(fileName);
     DECLARE_ID(mruTime);
     
@@ -125,6 +125,7 @@ namespace Ids
     DECLARE_ID(libraryset);
     DECLARE_ID(author);
     DECLARE_ID(excludefromchooser);
+	DECLARE_ID(showparamidintooltips);
     DECLARE_ID(numbuttons);
     DECLARE_ID(numButtons);
     DECLARE_ID(numencoders);

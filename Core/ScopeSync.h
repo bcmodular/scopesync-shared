@@ -137,6 +137,7 @@ public:
 
     ValueTree      getMapping() const;
     XmlElement&    getLayout(String& errorText, String& errorDetails, bool forceReload) const;
+	bool           showParamIDInTooltips();
     static XmlElement*    getSystemLookAndFeels();
     static XmlElement*    getStandardContent(const String& contentToShow);
 

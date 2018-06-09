@@ -112,7 +112,7 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
         DBG("BCMTextButton::applyProperties - mapping found: " + mapping.toXmlString());
         
 		buttonText = parameter->getShortDescription();
-		tooltip    = parameter->getFullDescription(true);
+		tooltip    = parameter->getFullDescription(scopeSync.showParamIDInTooltips());
 		parameter->getSettings(settings);
         parameter->mapToUIValue(parameterValue);
         

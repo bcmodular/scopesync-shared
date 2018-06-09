@@ -63,7 +63,7 @@ void BCMLabel::applyProperties(LabelProperties& props)
 
         if (mapsToParameter)
         {
-            tooltip = parameter->getFullDescription(true);
+			tooltip = parameter->getFullDescription(scopeSync.showParamIDInTooltips());
             
             if (props.parameterTextDisplay == LabelProperties::parameterName)
                 labelText = parameter->getName();

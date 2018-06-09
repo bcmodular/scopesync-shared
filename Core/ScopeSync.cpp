@@ -285,6 +285,14 @@ XmlElement& ScopeSync::getLayout(String& errorText, String& errorDetails, bool f
     return configuration->getLayout(errorText, errorDetails, forceReload);
 }
 
+bool ScopeSync::showParamIDInTooltips()
+{
+	String errorText;
+	String errorDetails;
+
+	return getLayout(errorText, errorDetails, false).getBoolAttribute(Ids::showparamidintooltips, true);
+}
+
 void ScopeSync::changeConfiguration(StringRef fileName, bool storeCurrentValues)
 {
     if (configuration->replaceConfiguration(fileName))

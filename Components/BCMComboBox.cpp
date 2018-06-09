@@ -109,7 +109,7 @@ void BCMComboBox::processParamSettings(StringRef tooltip)
 		ValueTree parameterSettings;
 		parameter->getSettings(parameterSettings);
 
-		tooltip = parameter->getFullDescription(true);
+		tooltip = parameter->getFullDescription(scopeSync.showParamIDInTooltips());
 
 		for (int i = 0; i < parameterSettings.getNumChildren(); i++)
 		{

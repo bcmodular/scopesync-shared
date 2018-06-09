@@ -220,6 +220,9 @@ ApplicationCommandTarget* BCMWidget::getNextCommandTarget()
 
 void BCMWidget::showPopupMenu()
 {
+	if (scopeSync.configurationIsEmbedded())
+		return;
+
     commandManager->setFirstCommandTarget(this);
 
     String headerText = getComponentType().toString();
@@ -306,7 +309,7 @@ BCMParameterWidget::BCMParameterWidget(ScopeSyncGUI& owner) : BCMWidget(owner)
 
 void BCMParameterWidget::getAllCommands(Array<CommandID>& commands)
 {
-    if (!scopeSync.configurationIsReadOnly())
+    if (!scopeSync.configurationIsEmbedded())
     {
         const CommandID ids[] = { CommandIDs::addParameter,
                                   CommandIDs::addParameterFromClipboard,
@@ -326,6 +329,14 @@ void BCMParameterWidget::getAllCommands(Array<CommandID>& commands)
 
         commands.addArray (ids, numElementsInArray (ids));
     }
+	else
+	{
+		const CommandID ids[] = { CommandIDs::copyParameter,
+								  CommandIDs::copyOSCPath
+		};
+
+		commands.addArray(ids, numElementsInArray(ids));
+	}
 }
 
 void BCMParameterWidget::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result)
@@ -397,19 +408,31 @@ bool BCMParameterWidget::perform(const InvocationInfo& info)
 
 void BCMParameterWidget::showPopupMenu()
 {
+	if (scopeSync.configurationIsEmbedded() && parameter == nullptr)
+		return;
+
     commandManager->setFirstCommandTarget(this);
 
-    String headerText = getComponentType().toString();
+    String headerText;
 
-    if (widgetTemplateId.isNotEmpty())
-        headerText += " (" + widgetTemplateId + ")";
+	if (scopeSync.configurationIsEmbedded() && parameter != nullptr)
+	{
+		headerText = parameter->getFullDescription();
+	}
+	else
+	{
+		headerText = getComponentType().toString();
 
-    headerText += ": " + parentWidget->getName();
+		if (widgetTemplateId.isNotEmpty())
+			headerText += " (" + widgetTemplateId + ")";
 
-    String copyToText = getComponentType().toString() + "s";
+		headerText += ": " + parentWidget->getName();
+	}
 
-    if (widgetTemplateId.isNotEmpty())
-        copyToText = widgetTemplateId + " " + copyToText;
+	String copyToText = getComponentType().toString() + "s";
+
+	if (widgetTemplateId.isNotEmpty())
+		copyToText = widgetTemplateId + " " + copyToText;
 
     PopupMenu m;
     m.addSectionHeader(headerText);
