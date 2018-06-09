@@ -61,7 +61,7 @@ public:
     ApplicationCommandManager* getCommandManager() const;
 
 private:
-    LookAndFeel_V3             lookAndFeel;
+    LookAndFeel_V4             lookAndFeel;
     Label                      fileNameLabel;
     ImageButton                addButton;
     ImageButton                openButton;

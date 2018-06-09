@@ -1,6 +1,6 @@
 /**
  * BCModular's LookAndFeel for ScopeSync (derived from Juce's
- * LookAndFeel_V3). Allows LookAndFeels to be defined from XML.
+ * LookAndFeel_V4). Allows LookAndFeels to be defined from XML.
  * Also has support for fixed or filmstrip images for certain
  * types of Component.
  *
@@ -59,7 +59,7 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilmStripImage);
 };
 
-class BCMLookAndFeel : public LookAndFeel_V3
+class BCMLookAndFeel : public LookAndFeel_V4
 {
 public:
     // In case no lookandfeel element provided, default constructor
@@ -109,7 +109,7 @@ public:
      Slider&   slider
      ) override;
     
-    // Returns the radius of a Slider thumb. Overridden from LookAndFeel_V3's
+    // Returns the radius of a Slider thumb. Overridden from LookAndFeel_V4's
     // so it can handle situation when images being used for thumb
     int getSliderThumbRadius(Slider& slider) override;
     

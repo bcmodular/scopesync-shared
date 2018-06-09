@@ -107,7 +107,9 @@ public:
     };
 
 private:
-    ScopedPointer<ApplicationCommandManager> commandManager;
+	LookAndFeel_V4 lookAndFeel;
+
+	ScopedPointer<ApplicationCommandManager> commandManager;
     UndoManager           undoManager;
     ApplicationProperties appProperties;
     ApplicationProperties globalProperties;

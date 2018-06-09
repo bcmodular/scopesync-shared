@@ -65,7 +65,7 @@ public:
     ScopeSync&                 getScopeSync() const { return scopeSync; };
 
 private:
-    LookAndFeel_V3             lookAndFeel;
+    LookAndFeel_V4             lookAndFeel;
     Label                      fileNameLabel;
     ImageButton                addButton;
     ImageButton                saveButton;
@@ -123,7 +123,7 @@ public:
     int  getNumActions() const { return numActions; }
 
 private:
-    LookAndFeel_V3             lookAndFeel;
+    LookAndFeel_V4             lookAndFeel;
     ScopedPointer<Component>   panel;
     
     ScopeSync&                 scopeSync;

@@ -1,6 +1,6 @@
 /**
  * BCModular's LookAndFeel for ScopeSync (derived from Juce's
- * LookAndFeel_V3). Allows LookAndFeels to be defined from XML.
+ * LookAndFeel_V4). Allows LookAndFeels to be defined from XML.
  * Also has support for fixed or filmstrip images for certain
  * types of Component.
  *
@@ -471,7 +471,7 @@ void BCMLookAndFeel::drawRotarySlider
     else
     {
         // Invalid slider image, so just use the standard draw routine
-        LookAndFeel_V3::drawRotarySlider(g, x, y, width, height, sliderPosProportional, rotaryStartAngle, rotaryEndAngle, slider);
+        LookAndFeel_V4::drawRotarySlider(g, x, y, width, height, sliderPosProportional, rotaryStartAngle, rotaryEndAngle, slider);
     }
 }
 
@@ -538,7 +538,7 @@ void BCMLookAndFeel::drawLinearSliderThumb
     }
     else
     {
-        LookAndFeel_V3::drawLinearSliderThumb(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, sliderStyle, slider);
+        LookAndFeel_V4::drawLinearSliderThumb(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, sliderStyle, slider);
     }
 }
 
@@ -549,7 +549,7 @@ int BCMLookAndFeel::getSliderThumbRadius (Slider& slider)
     else if (linearHorizontalThumb.isValid() && (slider.getSliderStyle() == Slider::LinearHorizontal))
         return jmax(linearHorizontalThumb.getWidth() / 2, linearHorizontalThumb.getHeight() / 2) + linearHorizontalThumbBorder;
     else
-        return LookAndFeel_V3::getSliderThumbRadius(slider);
+        return LookAndFeel_V4::getSliderThumbRadius(slider);
 }
 
 void BCMLookAndFeel::drawLinearSliderBackground
@@ -587,7 +587,7 @@ void BCMLookAndFeel::drawLinearSliderBackground
     }
     else
     {
-        LookAndFeel_V3::drawLinearSliderBackground(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
+        LookAndFeel_V4::drawLinearSliderBackground(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
     }
 }
 
@@ -624,7 +624,7 @@ void BCMLookAndFeel::drawButtonBackground
         g.drawImage(buttonImage, 0, 0, buttonImage.getWidth(), buttonImage.getHeight(), 0, 0, buttonImage.getWidth(), buttonImage.getHeight());
     }
     else
-        LookAndFeel_V3::drawButtonBackground(g, button, backgroundColour, isMouseOverButton, isButtonDown);
+        LookAndFeel_V4::drawButtonBackground(g, button, backgroundColour, isMouseOverButton, isButtonDown);
 }
 
 Label* BCMLookAndFeel::createSliderTextBox(Slider& slider)

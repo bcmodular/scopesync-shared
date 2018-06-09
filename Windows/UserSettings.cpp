@@ -164,6 +164,9 @@ UserSettings::UserSettings()
       presetManagerButton("Preset Manager...")
       
 {
+	lookAndFeel.setColourScheme(LookAndFeel_V4::getMidnightColourScheme());
+	setLookAndFeel(&lookAndFeel);
+
     commandManager = new ApplicationCommandManager();
 
     commandManager->registerAllCommandsForTarget(this);
@@ -233,7 +236,9 @@ UserSettings::UserSettings()
 
 UserSettings::~UserSettings()
 {
-    removeKeyListener(commandManager->getKeyMappings());
+	setLookAndFeel(nullptr);
+
+	removeKeyListener(commandManager->getKeyMappings());
     stopTimer();
 
     saveSwatchColours();
