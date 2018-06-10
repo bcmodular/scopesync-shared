@@ -29,6 +29,7 @@
 #define PARAMETERPANEL_H_INCLUDED
 
 #include <JuceHeader.h>
+#include "../Components/BCMLookAndFeel.h"
 #include "../Parameters/BCMParameter.h"
 #include "../Windows/UserSettings.h"
 
@@ -49,6 +50,7 @@ public:
     void focusGained(FocusChangeType cause) override;
 
 protected:
+	SharedResourcePointer<BCMDefaultLookAndFeel> bcmDefaultLookAndFeel;
     ValueTree      valueTree;
     PropertyPanel  propertyPanel;
     UndoManager&   undoManager;

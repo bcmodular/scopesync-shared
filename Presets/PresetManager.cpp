@@ -132,6 +132,7 @@ void PresetManager::setButtonImages(ImageButton& button, const String& normalIma
 
 PresetManager::~PresetManager()
 {
+	setLookAndFeel(nullptr);
     unload();
 }
 

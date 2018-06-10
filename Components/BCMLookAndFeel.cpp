@@ -471,7 +471,7 @@ void BCMLookAndFeel::drawRotarySlider
     else
     {
         // Invalid slider image, so just use the standard draw routine
-        LookAndFeel_V4::drawRotarySlider(g, x, y, width, height, sliderPosProportional, rotaryStartAngle, rotaryEndAngle, slider);
+        LookAndFeel_V3::drawRotarySlider(g, x, y, width, height, sliderPosProportional, rotaryStartAngle, rotaryEndAngle, slider);
     }
 }
 
@@ -538,7 +538,7 @@ void BCMLookAndFeel::drawLinearSliderThumb
     }
     else
     {
-        LookAndFeel_V4::drawLinearSliderThumb(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, sliderStyle, slider);
+        LookAndFeel_V3::drawLinearSliderThumb(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, sliderStyle, slider);
     }
 }
 
@@ -549,7 +549,7 @@ int BCMLookAndFeel::getSliderThumbRadius (Slider& slider)
     else if (linearHorizontalThumb.isValid() && (slider.getSliderStyle() == Slider::LinearHorizontal))
         return jmax(linearHorizontalThumb.getWidth() / 2, linearHorizontalThumb.getHeight() / 2) + linearHorizontalThumbBorder;
     else
-        return LookAndFeel_V4::getSliderThumbRadius(slider);
+        return LookAndFeel_V3::getSliderThumbRadius(slider);
 }
 
 void BCMLookAndFeel::drawLinearSliderBackground
@@ -587,7 +587,7 @@ void BCMLookAndFeel::drawLinearSliderBackground
     }
     else
     {
-        LookAndFeel_V4::drawLinearSliderBackground(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
+        LookAndFeel_V3::drawLinearSliderBackground(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
     }
 }
 
@@ -624,7 +624,7 @@ void BCMLookAndFeel::drawButtonBackground
         g.drawImage(buttonImage, 0, 0, buttonImage.getWidth(), buttonImage.getHeight(), 0, 0, buttonImage.getWidth(), buttonImage.getHeight());
     }
     else
-        LookAndFeel_V4::drawButtonBackground(g, button, backgroundColour, isMouseOverButton, isButtonDown);
+        LookAndFeel_V3::drawButtonBackground(g, button, backgroundColour, isMouseOverButton, isButtonDown);
 }
 
 Label* BCMLookAndFeel::createSliderTextBox(Slider& slider)
@@ -796,8 +796,24 @@ void BCMLookAndFeel::drawTabAreaBehindFrontButton(TabbedButtonBar& bar, Graphics
     g.fillRect (line);
 }
 
-BCMDefaultLookAndFeel::BCMDefaultLookAndFeel()
+BCMDefaultLookAndFeel::BCMDefaultLookAndFeel() :
+	bcmColourScheme(LookAndFeel_V4::getGreyColourScheme()),
+	bcmLookAndFeel(bcmColourScheme)
 {
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::windowBackground, Colour(0xff434343));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::widgetBackground, Colour(0xff434343));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::defaultFill, Colour(0xff434343));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::highlightedText, Colour(0xffdedede));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::highlightedFill, Colour(0xff6b6b6b));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::menuText, Colour(0xffdedede));
+	bcmColourScheme.setUIColour(LookAndFeel_V4::ColourScheme::UIColour::outline, Colour(0x00000000));
+	bcmLookAndFeel.setColourScheme(bcmColourScheme);
+
+	bcmLookAndFeel.setColour(PropertyComponent::backgroundColourId, Colour(0xff434343));
+	bcmLookAndFeel.setColour(PropertyComponent::labelTextColourId, Colour(0xffffffff));
+	bcmLookAndFeel.setColour(ResizableWindow::backgroundColourId, Colour(0xffffffff));
+	bcmLookAndFeel.setColour(TextButton::buttonColourId, Colour(0xff6b6b6b));
+	
 	LookAndFeel::setDefaultLookAndFeel(&bcmLookAndFeel);
 }
 

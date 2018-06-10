@@ -251,10 +251,10 @@ void ScopeSyncGUI::createGUI(bool forceReload)
     if (child)
         setupLookAndFeels(*child);
 
-    //BCMLookAndFeel* defaultLookAndFeel = scopeSync.getBCMLookAndFeelById("default");
-	//
-    //if (defaultLookAndFeel == nullptr)
-    //    defaultLookAndFeel = scopeSync.getBCMLookAndFeelById("system:default");
+    BCMLookAndFeel* defaultLookAndFeel = scopeSync.getBCMLookAndFeelById("default");
+	
+    if (defaultLookAndFeel == nullptr)
+        defaultLookAndFeel = scopeSync.getBCMLookAndFeelById("system:default");
 
     child = layoutXml.getChildByName("defaults");
 

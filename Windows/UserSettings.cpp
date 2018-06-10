@@ -164,10 +164,7 @@ UserSettings::UserSettings()
       presetManagerButton("Preset Manager...")
       
 {
-	lookAndFeel.setColourScheme(LookAndFeel_V4::getMidnightColourScheme());
-	setLookAndFeel(&lookAndFeel);
-
-    commandManager = new ApplicationCommandManager();
+	commandManager = new ApplicationCommandManager();
 
     commandManager->registerAllCommandsForTarget(this);
     addKeyListener(commandManager->getKeyMappings());
@@ -287,9 +284,9 @@ void UserSettings::setupPanel()
 
 void UserSettings::paint (Graphics& g)
 {
-    g.fillAll (Colour (0xff434343));
+    g.fillAll (Colour (0xff6b6b6b));
 
-    g.setColour(Colours::lightgrey);
+    g.setColour(Colour(0xff434343));
 
     Rectangle<int> localBounds(getLocalBounds().reduced(4));
     g.fillRect(localBounds);

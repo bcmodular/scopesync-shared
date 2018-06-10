@@ -140,7 +140,8 @@ public:
 private:
     
     /* ===================== Private member variables ========================= */
-    ScopedPointer<BCMComponent> mainComponent;
+	SharedResourcePointer<BCMDefaultLookAndFeel> defaultBCMLookAndFeel;
+	ScopedPointer<BCMComponent> mainComponent;
     Array<BCMTabbedComponent*>  tabbedComponents;
     ScopedPointer<Label>        systemError;
     ScopedPointer<ConfigurationChooserWindow> configurationChooserWindow;
@@ -148,7 +149,6 @@ private:
     ScopeSync& scopeSync;
     ValueTree  deviceMapping;
     SharedResourcePointer<TooltipWindow>  tooltipWindow;
-    SharedResourcePointer<BCMDefaultLookAndFeel> defaultBCMLookAndFeel;
 	SharedResourcePointer<UserSettings> userSettings;
 	SharedResourcePointer<AboutBoxWindow> aboutBox;
 

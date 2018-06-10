@@ -59,7 +59,7 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilmStripImage);
 };
 
-class BCMLookAndFeel : public LookAndFeel_V4
+class BCMLookAndFeel : public LookAndFeel_V3
 {
 public:
     // In case no lookandfeel element provided, default constructor
@@ -251,8 +251,11 @@ public:
 	BCMDefaultLookAndFeel();
 	~BCMDefaultLookAndFeel();
 
+	LookAndFeel_V4* getDefaultLookAndFeel() { return &bcmLookAndFeel; }
+
 private:
-	BCMLookAndFeel bcmLookAndFeel;
+	LookAndFeel_V4::ColourScheme bcmColourScheme;
+	LookAndFeel_V4               bcmLookAndFeel;
 
 JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BCMDefaultLookAndFeel);
 };

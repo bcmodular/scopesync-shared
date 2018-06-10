@@ -73,7 +73,8 @@ protected:
 BasePanel::BasePanel(ValueTree& node, UndoManager& um, ApplicationCommandManager* acm)
     : valueTree(node), undoManager(um), commandManager(acm)
 {
-    addAndMakeVisible(propertyPanel);
+	setLookAndFeel(&LookAndFeel::getDefaultLookAndFeel());
+	addAndMakeVisible(propertyPanel);
     setWantsKeyboardFocus(true);
     propertyPanel.setWantsKeyboardFocus(true);
     setSize(getLocalBounds().getWidth(), getLocalBounds().getHeight());
@@ -96,7 +97,7 @@ void BasePanel::paint(Graphics& g)
 {
     g.fillAll (Colour(0xff434343));
 
-    g.setColour(Colours::lightgrey);
+    g.setColour(Colour(0xff6b6b6b));
 
     Rectangle<int> localBounds(getLocalBounds());
     

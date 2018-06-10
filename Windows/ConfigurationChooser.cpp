@@ -193,8 +193,7 @@ ConfigurationChooser::ConfigurationChooser(ScopeSync& ss,
     
     table.setModel(this);
     
-    table.setColour(ListBox::outlineColourId, Colours::darkgrey);
-    table.setOutlineThickness(4);
+	table.setOutlineThickness(4);
     
     table.getHeader().addColumn(String(),        1, 10,  10, 10, TableHeaderComponent::notResizableOrSortable & ~TableHeaderComponent::draggable);
     table.getHeader().addColumn("Name",               2, 120, 40, -1, TableHeaderComponent::defaultFlags & ~TableHeaderComponent::draggable);
@@ -268,7 +267,7 @@ void ConfigurationChooser::selectCurrentConfiguration(const String& filePath)
 
 void ConfigurationChooser::paint(Graphics& g)
 {
-    g.fillAll(Colours::lightgrey);
+    g.fillAll(Colour(0xff434343));
 }
     
 void ConfigurationChooser::resized()
@@ -302,13 +301,23 @@ void ConfigurationChooser::sortOrderChanged(int newSortColumnId, bool isForwards
 void ConfigurationChooser::paintRowBackground(Graphics& g, int /* rowNumber */, int /* width */, int /* height */, bool rowIsSelected)
 {
     if (rowIsSelected)
-        g.fillAll (findColour(TextEditor::highlightColourId));
+        g.fillAll(Colour(0xff6b6b6b));
+	else
+		g.fillAll(Colour(0xff434343));
 }
 
-void ConfigurationChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool /* rowIsSelected */)
+void ConfigurationChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour(Colours::black);
-    g.setFont(font);
+	if (rowIsSelected)
+	{
+		g.setColour(Colour(0xff000000));
+		g.setFont(font.boldened());
+	}
+	else
+	{
+		g.setColour(Colour(0xffffffff));
+		g.setFont(font);
+	}
 
     String text;
 
@@ -326,7 +335,7 @@ void ConfigurationChooser::paintCell(Graphics& g, int rowNumber, int columnId, i
 
     g.drawText (text, 2, 0, width - 4, height, Justification::centredLeft, true);
     
-    g.setColour(Colours::black.withAlpha(0.2f));
+	g.setColour(Colours::black.withAlpha(0.2f));
     g.fillRect(width - 1, 0, 1, height);
 }
 

@@ -104,24 +104,30 @@ PresetChooser::PresetChooser(ValueTree& param, ScopeSync& ss, ApplicationCommand
     commandManager->registerAllCommandsForTarget(this);
 
     chooseButton.setCommandToTrigger(commandManager, CommandIDs::chooseSelectedPreset, true);
+	chooseButton.setColour(TextButton::buttonColourId, Colour(0xff434343));
     addAndMakeVisible(chooseButton);
 
     rebuildLibraryButton.setCommandToTrigger(commandManager, CommandIDs::rebuildFileLibrary, true);
-    addAndMakeVisible(rebuildLibraryButton);
+	rebuildLibraryButton.setColour(TextButton::buttonColourId, Colour(0xff434343));
+	addAndMakeVisible(rebuildLibraryButton);
 
     editLocationsButton.setCommandToTrigger(commandManager, CommandIDs::editFileLocations, true);
-    addAndMakeVisible(editLocationsButton);
+	editLocationsButton.setColour(TextButton::buttonColourId, Colour(0xff434343));
+	addAndMakeVisible(editLocationsButton);
     
     presetManagerButton.setCommandToTrigger(commandManager, CommandIDs::showPresetManager, true);
-    addAndMakeVisible(presetManagerButton);
+	presetManagerButton.setColour(TextButton::buttonColourId, Colour(0xff434343));
+	addAndMakeVisible(presetManagerButton);
     
     blurb.setJustificationType(Justification::topLeft);
     blurb.setMinimumHorizontalScale(1.0f);
+	blurb.setColour(Label::textColourId, Colours::black);
     addAndMakeVisible(blurb);
 
     fileNameLabel.setMinimumHorizontalScale(1.0f);
     fileNameLabel.setJustificationType(Justification::topLeft);
     fileNameLabel.setFont(Font(12.0f, Font::bold));
+	fileNameLabel.setColour(Label::textColourId, Colours::black);
     fileNameLabel.setText("Choose a Preset from the list below...", dontSendNotification);
     fileNameLabel.setTooltip(String());
     addAndMakeVisible(fileNameLabel);
@@ -196,14 +202,24 @@ void PresetChooser::sortOrderChanged(int newSortColumnId, bool isForwards)
 
 void PresetChooser::paintRowBackground(Graphics& g, int /* rowNumber */, int /* width */, int /* height */, bool rowIsSelected)
 {
-    if (rowIsSelected)
-        g.fillAll (findColour(TextEditor::highlightColourId));
+	if (rowIsSelected)
+		g.fillAll(Colour(0xff6b6b6b));
+	else
+		g.fillAll(Colour(0xff434343));
 }
 
-void PresetChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool /* rowIsSelected */)
+void PresetChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour(Colours::black);
-    g.setFont(font);
+	if (rowIsSelected)
+	{
+		g.setColour(Colour(0xff000000));
+		g.setFont(font.boldened());
+	}
+	else
+	{
+		g.setColour(Colour(0xffffffff));
+		g.setFont(font);
+	}
 
     String text;
 

@@ -227,14 +227,24 @@ void SettingsTable::selectedRowsChanged(int lastRowSelected)
 
 void SettingsTable::paintRowBackground(Graphics& g, int /* rowNumber */, int /* width */, int /* height */, bool rowIsSelected)
 {
-    if (rowIsSelected)
-        g.fillAll (findColour (TextEditor::highlightColourId));
+	if (rowIsSelected)
+		g.fillAll(Colour(0xff6b6b6b));
+	else
+		g.fillAll(Colour(0xff434343));
 }
 
-void SettingsTable::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool /* rowIsSelected */)
+void SettingsTable::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour(Colours::black);
-    g.setFont(font);
+	if (rowIsSelected)
+	{
+		g.setColour(Colour(0xff000000));
+		g.setFont(font.boldened());
+	}
+	else
+	{
+		g.setColour(Colour(0xffffffff));
+		g.setFont(font);
+	}
 
     if (columnId == 1)
     {

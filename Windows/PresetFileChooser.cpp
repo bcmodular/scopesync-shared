@@ -209,14 +209,24 @@ void PresetFileChooser::sortOrderChanged(int newSortColumnId, bool isForwards)
 
 void PresetFileChooser::paintRowBackground(Graphics& g, int /* rowNumber */, int /* width */, int /* height */, bool rowIsSelected)
 {
-    if (rowIsSelected)
-        g.fillAll (findColour(TextEditor::highlightColourId));
+	if (rowIsSelected)
+		g.fillAll(Colour(0xff6b6b6b));
+	else
+		g.fillAll(Colour(0xff434343));
 }
 
-void PresetFileChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool /* rowIsSelected */)
+void PresetFileChooser::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour(Colours::black);
-    g.setFont(font);
+	if (rowIsSelected)
+	{
+		g.setColour(Colour(0xff000000));
+		g.setFont(font.boldened());
+	}
+	else
+	{
+		g.setColour(Colour(0xffffffff));
+		g.setFont(font);
+	}
 
     String text;
 
