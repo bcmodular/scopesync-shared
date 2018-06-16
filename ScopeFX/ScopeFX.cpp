@@ -210,15 +210,24 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
                    PadData*  asyncOut, PadData* /*syncOut*/)
 {
 	// TODO: this needs to be tweaked to be thread-safe
-	int newDeviceInstance = asyncIn[INPAD_DEVICE_INSTANCE]->itg;
+	int newScopeSyncDeviceInstance = scopeSync->getDeviceInstance();
+	int newScopeDeviceInstance = asyncIn[INPAD_DEVICE_INSTANCE]->itg;
 
-	if (newDeviceInstance != deviceInstance)
+	if (newScopeSyncDeviceInstance != deviceInstance)
 	{
-		deviceInstance = newDeviceInstance;
-		scopeSync->setDeviceInstance(deviceInstance);
+		deviceInstance = newScopeSyncDeviceInstance;
+		ignoreDeviceInstanceUpdates = 30;
+	}
+	else if (ignoreDeviceInstanceUpdates == 0)
+	{
+		if (newScopeDeviceInstance != deviceInstance)
+		{
+			deviceInstance = newScopeDeviceInstance;
+			scopeSync->setDeviceInstance(deviceInstance);
+		}		
 	}
 	else
-		deviceInstance = scopeSync->getDeviceInstance();
+		--ignoreDeviceInstanceUpdates;
 	
 	// Where the configuration is embedded into the module, we're never interested in updates to the Cfg UID from Scope
 	if (scopeSync->configurationIsEmbedded())
@@ -268,7 +277,6 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
 	
 	// These are the In+Out parameters
 	asyncOut[OUTPAD_DEVICE_INSTANCE].itg = deviceInstance;
-	asyncOut[OUTPAD_DEVICEUID].itg       = scopeSync->getDeviceUID();
 	asyncOut[OUTPAD_CONFIGUID].itg       = scopeConfigUID.load(std::memory_order_relaxed);
 	
 	// These are Out only (nice and easy!)
@@ -280,7 +288,8 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
 	asyncOut[OUTPAD_PLUGIN_LISTENER_PORT].itg    = pluginListenerPort.load(std::memory_order_relaxed);
 	asyncOut[OUTPAD_SCOPESYNC_LISTENER_PORT].itg = scopeSyncListenerPort.load(std::memory_order_relaxed);
 	asyncOut[OUTPAD_SYNC_SCOPE].itg              = syncScopeValue.load(std::memory_order_relaxed);
-	
+	asyncOut[OUTPAD_DEVICEUID].itg               = scopeSync->getDeviceUID();
+
 	return 0;
 }
 

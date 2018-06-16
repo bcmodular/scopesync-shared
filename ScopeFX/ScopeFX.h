@@ -102,6 +102,7 @@ private:
 	std::atomic<int> configUID;				 // Configuration UID that ScopeSync thinks we should have. It will change this once a new Configuration has successfully loaded
 
 	int ignoreConfigUIDUpdates;
+	int ignoreDeviceInstanceUpdates;
 };
 
 #endif  // SCOPEFX_H_INCLUDED
