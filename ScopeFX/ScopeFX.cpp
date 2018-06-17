@@ -68,7 +68,8 @@ ScopeFX::ScopeFX()
 	  snapshotValue(0), syncScopeValue(0), 
 	  pluginHostOctet1(127), pluginHostOctet2(0), pluginHostOctet3(0), pluginHostOctet4(1),
 	  pluginListenerPort(8002), scopeSyncListenerPort(8001),
-	  configUID(0), ignoreConfigUIDUpdates(0)
+	  configUID(0), ignoreConfigUIDUpdates(0), ignoreDeviceInstanceUpdates(0), deviceInstanceInitialised(false),
+	  startupDelay(5)
 {
 	shouldShowWindow = false;
 
@@ -210,25 +211,56 @@ int ScopeFX::async(PadData** asyncIn,  PadData* /*syncIn*/,
                    PadData*  asyncOut, PadData* /*syncOut*/)
 {
 	// TODO: this needs to be tweaked to be thread-safe
-	int newScopeSyncDeviceInstance = scopeSync->getDeviceInstance();
-	int newScopeDeviceInstance = asyncIn[INPAD_DEVICE_INSTANCE]->itg;
-
-	if (newScopeSyncDeviceInstance != deviceInstance)
-	{
-		deviceInstance = newScopeSyncDeviceInstance;
-		ignoreDeviceInstanceUpdates = 30;
-	}
-	else if (ignoreDeviceInstanceUpdates == 0)
-	{
-		if (newScopeDeviceInstance != deviceInstance)
-		{
-			deviceInstance = newScopeDeviceInstance;
-			scopeSync->setDeviceInstance(deviceInstance);
-		}		
-	}
+	// There are some issues with module loading order in Scope SDK, which means
+	// that values we pass out of the DLL don't get "seen" by some modules if we 
+	// set them too early. Hence waiting a few cycles before setting them
+	if (startupDelay > 0)
+		--startupDelay;
 	else
-		--ignoreDeviceInstanceUpdates;
-	
+	{
+		if (!deviceInstanceInitialised)
+		{
+			// We either want to use the value passed in, or if it's already in use, choose
+			// the next available one
+			deviceInstance = scopeSync->initDeviceInstance(asyncIn[INPAD_DEVICE_INSTANCE]->itg);
+			
+			// With the deviceInstance changing, we'll want to make sure the Scope values are
+			// sync-ed up, so prompt that here
+			syncScopeValue.fetch_add(1, std::memory_order_relaxed);
+
+			deviceInstanceInitialised = true;
+
+			// Make sure the Scope modules have time to catch up and ignore updates coming from Scope
+			// for a bit (a few seconds)
+			ignoreDeviceInstanceUpdates = 30;
+		}
+		else
+		{
+			int newScopeSyncDeviceInstance = scopeSync->getDeviceInstance();
+			int newScopeDeviceInstance = asyncIn[INPAD_DEVICE_INSTANCE]->itg;
+
+			if (newScopeSyncDeviceInstance != deviceInstance)
+			{
+				// We have a new value from ScopeSync, i.e. someone used the slider in the header bar
+				deviceInstance = newScopeSyncDeviceInstance;
+
+				// Let Scope catch up with the change
+				ignoreDeviceInstanceUpdates = 30;
+			}
+			else if (ignoreDeviceInstanceUpdates == 0)
+			{
+				if (newScopeDeviceInstance != deviceInstance)
+				{
+					// We have a new value coming from Scope (probably Project/Preset load)
+					deviceInstance = newScopeDeviceInstance;
+					scopeSync->setDeviceInstance(deviceInstance);
+				}
+			}
+			else
+				--ignoreDeviceInstanceUpdates;
+		}
+	}
+
 	// Where the configuration is embedded into the module, we're never interested in updates to the Cfg UID from Scope
 	if (scopeSync->configurationIsEmbedded())
 		ignoreConfigUIDUpdates = 1;

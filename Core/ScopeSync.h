@@ -71,7 +71,7 @@ public:
 	int  getDeviceInstance() const {return int(deviceInstance.getValue());}
 	void setDeviceInstance(int newUID) {deviceInstance.setValue(newUID);}
 
-	void initDeviceInstance();
+	int initDeviceInstance(int initialValue = 0);
     void referToDeviceInstance(Value& valueToLink) const;
 
 	void referToConfigurationUID(Value& valueToLink) const;

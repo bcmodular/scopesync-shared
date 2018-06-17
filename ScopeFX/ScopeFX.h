@@ -103,6 +103,9 @@ private:
 
 	int ignoreConfigUIDUpdates;
 	int ignoreDeviceInstanceUpdates;
+
+	bool deviceInstanceInitialised;
+	int  startupDelay;
 };
 
 #endif  // SCOPEFX_H_INCLUDED

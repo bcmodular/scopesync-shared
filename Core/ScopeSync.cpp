@@ -127,14 +127,14 @@ bool ScopeSync::deviceInstanceInUse(int uid, ScopeSync* currentInstance)
 	return false;
 }
 
-void ScopeSync::initDeviceInstance()
+int ScopeSync::initDeviceInstance(int initialValue)
 {
-	int initialDeviceInstance = 0;
-
-	while (initialDeviceInstance < INT_MAX && deviceInstanceInUse(initialDeviceInstance, this))
-		initialDeviceInstance++;
+	while (initialValue < INT_MAX && deviceInstanceInUse(initialValue, this))
+		++initialValue;
 	
-   deviceInstance.setValue(initialDeviceInstance);
+   deviceInstance.setValue(initialValue);
+
+   return initialValue;
 }
 
 void ScopeSync::referToDeviceInstance(Value & valueToLink) const
