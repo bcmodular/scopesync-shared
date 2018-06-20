@@ -327,7 +327,22 @@ void Configuration::loadLoaderLayout()
 		layoutElement = XmlDocument::parse(xmlToParse);
 	}	
 
-    loaderLayoutXml = *layoutElement;
+	
+	if (layoutElement->hasTagName(Ids::layout))
+	{
+		// No XSD validation header
+		loaderLayoutXml = *layoutElement;
+	}
+	else
+	{
+		// Look for a layout element at the 2nd level down instead
+		XmlElement* subXml = layoutElement->getChildByName(Ids::layout);
+
+		if (subXml != nullptr)
+		{
+			loaderLayoutXml = *subXml;
+		}
+	}
 }
 
 String Configuration::getDocumentTitle()
@@ -888,10 +903,15 @@ ValueTree Configuration::getMapping() const
 
 XmlElement& Configuration::getLayout(String& errorText, String& errorDetails, bool forceReload)
 {
+#ifdef LOADER_LAYOUT
+	layoutLoaded = true;
+	return layoutXml;
+#else
     if (layoutLoaded && !forceReload)
         return layoutXml;
     else
         return loadLayoutXml(errorText, errorDetails);
+#endif
 }
 
 XmlElement& Configuration::loadLayoutXml(String& errorText, String& errorDetails)

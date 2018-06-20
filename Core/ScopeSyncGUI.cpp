@@ -242,6 +242,9 @@ void ScopeSyncGUI::createGUI(bool forceReload)
 
     XmlElement& layoutXml = scopeSync.getLayout(errorText, errorDetails, forceReload);
 
+	DBG("**************************************");
+	DBG(layoutXml.createDocument(""));
+
     if (errorText.isNotEmpty())
         scopeSync.setSystemError(errorText, errorDetails);
     
