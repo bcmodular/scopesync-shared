@@ -71,7 +71,7 @@ void ScopeFXGUI::open(HWND scopeWindow)
     int width  = jmax(scopeSyncGUI->getWidth(), 100);
     int height = jmax(scopeSyncGUI->getHeight(), 100);
 
-    DBG("ScopeFXGUI::ScopeFXGUI - Creating scopeSyncGUI, width=" + String(width) + ", height=" + String(height));
+    BCMDBG("ScopeFXGUI::ScopeFXGUI - Creating scopeSyncGUI, width=" + String(width) + ", height=" + String(height));
     
     setSize(width, height);
     addAndMakeVisible(scopeSyncGUI);
@@ -89,7 +89,7 @@ void ScopeFXGUI::valueChanged(Value & valueThatChanged)
 	// This will be called when Scope sets the values, typically on Project/Preset/Screenset load
     if (!ignoreXYFromScope && (valueThatChanged.refersToSameSourceAs(xPos) || valueThatChanged.refersToSameSourceAs(yPos)))
     {
-        DBG("ScopeFXGUI::valueChanged - new position: X = " + xPos.getValue().toString() + " Y = " + yPos.getValue().toString());
+        BCMDBG("ScopeFXGUI::valueChanged - new position: X = " + xPos.getValue().toString() + " Y = " + yPos.getValue().toString());
         setTopLeftPosition(xPos.getValue(), yPos.getValue());
     }
 	else if (valueThatChanged.refersToSameSourceAs(configurationName))
@@ -118,7 +118,7 @@ void ScopeFXGUI::userTriedToCloseWindow()
 void ScopeFXGUI::moved()
 {
 	// This is called when someone is physically moving the window
-    DBG("ScopeFXGUI::moved - new position: X = " + String(getScreenPosition().getX()) + " Y = " + String(getScreenPosition().getY()));
+    BCMDBG("ScopeFXGUI::moved - new position: X = " + String(getScreenPosition().getX()) + " Y = " + String(getScreenPosition().getY()));
     parameterController->getFixedParameterByName("X")->setUIValue(float(getScreenPosition().getX()));
     parameterController->getFixedParameterByName("Y")->setUIValue(float(getScreenPosition().getY()));
 

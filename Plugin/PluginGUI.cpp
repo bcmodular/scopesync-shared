@@ -43,7 +43,7 @@ PluginGUI::PluginGUI (PluginProcessor* owner)
     int width  = jmax(scopeSyncGUI->getWidth(), 100);
     int height = jmax(scopeSyncGUI->getHeight(), 100);
     
-    DBG("PluginGUI::PluginGUI - Creating scopeSyncGUI, width=" + String(width) + ", height=" + String(height));
+    BCMDBG("PluginGUI::PluginGUI - Creating scopeSyncGUI, width=" + String(width) + ", height=" + String(height));
     
     setSize(width, height);
     addAndMakeVisible(scopeSyncGUI);
@@ -83,7 +83,7 @@ void PluginGUI::timerCallback()
 
     if (sizeChanged || initialising)
     {
-        DBG("PluginGUI::timerCallback - GUI size changed: My size: " + String(getWidth()) + ", " + String(getHeight()) + " ScopeSyncGUI size: " + String(newWidth) + ", " + String(newHeight));
+        BCMDBG("PluginGUI::timerCallback - GUI size changed: My size: " + String(getWidth()) + ", " + String(getHeight()) + " ScopeSyncGUI size: " + String(newWidth) + ", " + String(newHeight));
         setSize(newWidth, newHeight);
         grabKeyboardFocus();
         initialising = false;

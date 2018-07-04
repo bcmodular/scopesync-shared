@@ -26,6 +26,7 @@
 
 #include "BCMMisc.h"
 #include "BCMMath.h"
+#include "../Core/ScopeSyncApplication.h"
 
 String createAlphaNumericUID()
 {
@@ -77,7 +78,7 @@ String ipAddressFromHostName(StringRef hostName, StringRef port)
 					auto sockaddr_ipv4 = reinterpret_cast<struct sockaddr_in*>(i->ai_addr);
 					ipAddress = String(inet_ntoa(sockaddr_ipv4->sin_addr));
 
-					DBG("ipAddressFromHostName: IP Address - " + ipAddress);
+					BCMDBG("ipAddressFromHostName: IP Address - " + ipAddress);
 				}
 			}
 

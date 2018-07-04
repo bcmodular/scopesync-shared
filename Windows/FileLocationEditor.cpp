@@ -26,6 +26,7 @@
 
 #include "FileLocationEditor.h"
 #include "../Core/Global.h"
+#include "../Core/ScopeSyncApplication.h"
 
 FileLocationEditorWindow::FileLocationEditorWindow(int posX, int posY, 
                                                    ApplicationCommandManager* acm, 
@@ -156,7 +157,7 @@ FileLocationEditor::FileLocationEditor(UndoManager& um, ApplicationCommandManage
       undoButton("Undo"),
       redoButton("Redo")
 {
-    DBG("FileLocationEditor::FileLocationEditor");
+    BCMDBG("FileLocationEditor::FileLocationEditor");
     locationsChanged = false;
 
     tree = userSettings->getFileLocations();

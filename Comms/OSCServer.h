@@ -47,6 +47,8 @@ public:
 	void   registerOSCListener(ListenerWithOSCAddress<MessageLoopCallback>* newListener, OSCAddress address);
 	void   unregisterOSCListener(ListenerWithOSCAddress<MessageLoopCallback>* listenerToRemove);
 
+	int getLocalPortNum() const;
+
 protected:
 	Value oscLocalPortNum;
 	Value oscRemoteHost;

@@ -176,7 +176,7 @@ void SettingsTable::resized()
     moveUpButton.setBounds(buttonBar.removeFromLeft(70));
     moveDownButton.setBounds(buttonBar.removeFromLeft(70));
 
-    DBG("SettingsTable::resized - Local Bounds: " + String(localBounds.getWidth()) + ", " + String(localBounds.getHeight()));
+    BCMDBG("SettingsTable::resized - Local Bounds: " + String(localBounds.getWidth()) + ", " + String(localBounds.getHeight()));
     table.setBounds(localBounds.reduced(4, 4));
 }
     

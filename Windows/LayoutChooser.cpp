@@ -472,7 +472,7 @@ void LayoutChooser::attachToTree()
     
     ScopedPointer<XmlElement> xml(viewTree.createXml());
 
-    DBG("LayoutChooser::attachToTree - new tree: " + xml->createDocument(String()));
+    BCMDBG("LayoutChooser::attachToTree - new tree: " + xml->createDocument(String()));
 
     LayoutSorter sorter(10, false);
     viewTree.sort(sorter, nullptr, true);

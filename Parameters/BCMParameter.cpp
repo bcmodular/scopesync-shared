@@ -80,7 +80,7 @@ BCMParameter::BCMParameter(ValueTree parameterDefinition, BCMParameterController
 BCMParameter::~BCMParameter()
 {
 	stopTimer();
-	DBG("BCMParameter::~BCMParameter - deleting parameter: " + getName());
+	BCMDBG("BCMParameter::~BCMParameter - deleting parameter: " + getName());
 	masterReference.clear();
 };
 
@@ -110,7 +110,7 @@ void BCMParameter::setParameterValues(ParameterUpdateSource updateSource, double
 	updateSourceBlock = updateSource;
 	startTimer(200);
 
-	DBG("BCMParameter::setParameterValues - updateSource: " + String(updateSource));
+	BCMDBG("BCMParameter::setParameterValues - updateSource: " + String(updateSource));
 	linearNormalisedValue = newLinearNormalisedValue;
 	uiValue               = newUIValue;
 
@@ -125,7 +125,7 @@ void BCMParameter::setParameterValues(ParameterUpdateSource updateSource, double
 
 void BCMParameter::putValuesInRange()
 {
-    DBG("BCMParameter::putValuesInRange - Initialise to: " + String(uiResetValue));
+    BCMDBG("BCMParameter::putValuesInRange - Initialise to: " + String(uiResetValue));
     double newLinearNormalisedValue = scaleDouble(uiRangeMin, uiRangeMax, 0.0f, 1.0f, uiResetValue);
 
 	setParameterValues(internalUpdate, newLinearNormalisedValue, uiResetValue);
@@ -133,7 +133,7 @@ void BCMParameter::putValuesInRange()
 
 void BCMParameter::mapToUIValue(Value& valueToMapTo) const
 {
-    // DBG("BCMParameter::mapToUIValue - current uiValue: " + uiValue.getValue().toString());
+    // BCMDBG("BCMParameter::mapToUIValue - current uiValue: " + uiValue.getValue().toString());
     valueToMapTo.referTo(uiValue);
 }
 
@@ -190,7 +190,7 @@ void BCMParameter::getUITextValue(String& textValue) const
     {
         textValue = String(float(uiValue.getValue()), numDecimalPlaces) + uiSuffix;
     }
-    //DBG("BCMParameter::getUITextValue - " + definition.getProperty(paramNameId).toString() + ": " + textValue);
+    //BCMDBG("BCMParameter::getUITextValue - " + definition.getProperty(paramNameId).toString() + ": " + textValue);
 }
 
 float BCMParameter::getHostValue() const
@@ -200,7 +200,7 @@ float BCMParameter::getHostValue() const
 	if (!skewUIOnly)
 		hostValue = skewHostValue(hostValue, true);
 
-    // DBG("BCMParameter::getHostValue - " + definition.getProperty(Ids::name).toString() + ": " + String(hostValue));
+    // BCMDBG("BCMParameter::getHostValue - " + definition.getProperty(Ids::name).toString() + ": " + String(hostValue));
     return hostValue;
 }
 
@@ -259,7 +259,7 @@ void BCMParameter::setHostValue(float newValue, bool forceUpdate)
 
 	setParameterValues(hostUpdate, newLinearNormalisedValue, newUIValue, forceUpdate);
     
-	DBG("BCMParameter::setHostValue - " + name + " linearNormalisedValue: " + linearNormalisedValue.toString() + ", uiValue: " + uiValue.toString());
+	BCMDBG("BCMParameter::setHostValue - " + name + " linearNormalisedValue: " + linearNormalisedValue.toString() + ", uiValue: " + uiValue.toString());
 }
 
 void BCMParameter::setUIValue(float newValue)
@@ -271,7 +271,7 @@ void BCMParameter::setUIValue(float newValue)
 	//	newLinearNormalisedValue = skewHostValue(newLinearNormalisedValue, true);
 
 	setParameterValues(guiUpdate, newLinearNormalisedValue, newUIValue);
-    DBG("BCMParameter::setUIValue - " + name + " linearNormalisedValue: " + linearNormalisedValue.toString() + ", uiValue: " + uiValue.toString() + ", scopeValue: " + String(scopeOSCParameter.getValue()));
+    BCMDBG("BCMParameter::setUIValue - " + name + " linearNormalisedValue: " + linearNormalisedValue.toString() + ", uiValue: " + uiValue.toString() + ", scopeValue: " + String(scopeOSCParameter.getValue()));
 }
 
 float BCMParameter::skewHostValue(float hostValue, bool invert) const
@@ -288,7 +288,7 @@ void BCMParameter::valueChanged(Value& valueThatChanged)
 {
 	if (valueThatChanged.refersToSameSourceAs(uiValue))
 	{
-		DBG("BCMParameter::valueChanged (uiValue)");
+		BCMDBG("BCMParameter::valueChanged (uiValue)");
 		setUIValue(float(valueThatChanged.getValue()));
 	}
 	else if (valueThatChanged.refersToSameSourceAs(deviceInstance))

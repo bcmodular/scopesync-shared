@@ -335,7 +335,7 @@ bool ScopeSync::shouldShowEditToolbar() const
 
 void ScopeSync::applyConfiguration(bool storeCurrentValues)
 {
-	DBG("ScopeSync::applyConfiguration");
+	BCMDBG("ScopeSync::applyConfiguration");
 
 #ifdef __DLL_EFFECT__
 	// Stop listening for Configuration UID updates from Scope

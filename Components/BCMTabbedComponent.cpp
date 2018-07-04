@@ -71,20 +71,20 @@ void BCMTabbedComponent::valueChanged(Value& value)
 {
     if (getName().equalsIgnoreCase("Device Type"))
 	{
-		DBG("BCMTabbedComponent::valueChanged: new value: " + value.toString());
+		BCMDBG("BCMTabbedComponent::valueChanged: new value: " + value.toString());
 
 		setCurrentTabIndex(value.getValue(), false);
 	}
 	else
 	{
-		DBG("BCMTabbedComponent::valueChanged: new value: " + String(roundToInt(value.getValue())));
+		BCMDBG("BCMTabbedComponent::valueChanged: new value: " + String(roundToInt(value.getValue())));
 		setCurrentTabIndex(roundToInt(value.getValue()), true);
 	}	
 }
 
 void BCMTabbedComponent::currentTabChanged(int newCurrentTabIndex, const String& newCurrentTabName)
 {
-    DBG("BCMTabbedComponent::currentTabChanged: new tab: " + String(newCurrentTabIndex) + " - " + newCurrentTabName);
+    BCMDBG("BCMTabbedComponent::currentTabChanged: new tab: " + String(newCurrentTabIndex) + " - " + newCurrentTabName);
     
     (void)newCurrentTabName;
 
@@ -106,7 +106,7 @@ void BCMTabbedComponent::attachToParameter()
 			parameterValue.addListener(this);
 		}
 
-		DBG("BCMTabbedComponent::attachToParameter: initialise tab: " + String(roundToInt(parameterValue.getValue())));
+		BCMDBG("BCMTabbedComponent::attachToParameter: initialise tab: " + String(roundToInt(parameterValue.getValue())));
 		setCurrentTabIndex(roundToInt(parameterValue.getValue()), false);
 	}
 }

@@ -52,12 +52,12 @@ public:
     // and fill in outgoing streams as appropriate
     int  syncBlock (PadData** asyncIn,  PadData* syncIn,
                     PadData*  asyncOut, PadData* syncOut, 
-                    int       off,      int      cnt);
+                    int       off,      int      cnt) override;
 
     // Process new Async values coming in from Scope and pass on
     // updates from within ScopeSync
     int  async (PadData** asyncIn,  PadData* syncIn,
-                PadData*  asyncOut, PadData* syncOut);
+                PadData*  asyncOut, PadData* syncOut) override;
     
     ScopeSync& getScopeSync() { return *scopeSync; };
     void setGUIEnabled(bool shouldBeEnabled);

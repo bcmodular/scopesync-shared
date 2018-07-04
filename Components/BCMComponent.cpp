@@ -255,6 +255,8 @@ private:
 BCMComponent::BCMComponent(ScopeSyncGUI& owner, BCMParameterController& pc, const String& name, bool isMainComponent)
 	: BCMWidget(owner), Component(name),
 	  drawCrossHair(false), horizontalCrossHairThickness(10), verticalCrossHairThickness(10), horizontalCrossHairColour(), verticalCrossHairColour(),
+	  crossHairGridCubeHeight(1), crossHairGridCubeWidth(1), 
+	  crossHairDetectFromX(0), crossHairDetectFromY(0), crossHairDetectWidth(-1), crossHairDetectHeight(-1),
 	  parameterController(pc), mainComponent(isMainComponent)
 {
     setParentWidget(this);
@@ -328,6 +330,12 @@ void BCMComponent::applyProperties(XmlElement& componentXML, const String& layou
 
 		horizontalCrossHairThickness = props.horizontalCrossHairThickness;
 		verticalCrossHairThickness   = props.verticalCrossHairThickness;
+		crossHairGridCubeWidth       = props.crossHairGridCubeWidth;
+		crossHairGridCubeHeight      = props.crossHairGridCubeHeight;
+		crossHairDetectFromX         = props.crossHairDetectFromX;
+		crossHairDetectFromY         = props.crossHairDetectFromY;
+		crossHairDetectWidth         = props.crossHairDetectWidth;
+		crossHairDetectHeight        = props.crossHairDetectHeight;
 		horizontalCrossHairColour    = Colour::fromString(props.horizontalCrossHairColour);
 		verticalCrossHairColour      = Colour::fromString(props.verticalCrossHairColour);
     }
@@ -344,7 +352,7 @@ void BCMComponent::applyProperties(XmlElement& componentXML, const String& layou
             Rectangle<int> editToolbarBounds = getLocalBounds().removeFromBottom(40).removeFromLeft(200);
 
 	        bool showEditToolbar = scopeSync.shouldShowEditToolbar();
-            DBG("BCMComponent::applyProperties - Show Edit Toolbar: " + String((showEditToolbar) ? "True" : "False"));
+            BCMDBG("BCMComponent::applyProperties - Show Edit Toolbar: " + String((showEditToolbar) ? "True" : "False"));
             
             if (!showEditToolbar)
                 editToolbarBounds.translate(-120, 0);
@@ -388,8 +396,8 @@ void BCMComponent::setupStandardContent(XmlElement& contentXML)
 
         ScopedPointer<XmlElement> standardContent = scopeSync.getStandardContent(contentToShow);
 
-		//DBG("BCMComponent::setupStandardContent: type = " + contentToShow + ", XML - ");
-		//DBG(standardContent->createDocument(String()));
+		//BCMDBG("BCMComponent::setupStandardContent: type = " + contentToShow + ", XML - ");
+		//BCMDBG(standardContent->createDocument(String()));
 
         if (standardContent != nullptr)
             setupContent(*standardContent);
@@ -444,13 +452,26 @@ void BCMComponent::paint(Graphics& g)
 
 		if (screenBounds.contains(mousePosition))
 		{
-			Rectangle<int> horizontalLine(0, getLocalPoint(nullptr, mousePosition).getY() - (horizontalCrossHairThickness / 2), this->getWidth(), horizontalCrossHairThickness);
-			g.setColour(horizontalCrossHairColour);
-			g.fillRect(horizontalLine);
+			Rectangle<int> crossHairBounds(crossHairDetectFromX, crossHairDetectFromY, 
+				                           (crossHairDetectWidth == -1) ? getWidth() - crossHairDetectFromX : crossHairDetectWidth,
+				                           (crossHairDetectHeight == -1) ? getHeight() - crossHairDetectFromY : crossHairDetectHeight);
 
-			Rectangle<int> verticalLine(getLocalPoint(nullptr, mousePosition).getX() - (verticalCrossHairThickness / 2), 0, verticalCrossHairThickness, this->getHeight());
-			g.setColour(verticalCrossHairColour);
-			g.fillRect(verticalLine);
+			int mousePosX = getLocalPoint(nullptr, mousePosition).getX();
+			int mousePosY = getLocalPoint(nullptr, mousePosition).getY();
+
+			if (crossHairBounds.contains(mousePosX, mousePosY))
+			{
+				int verticalLineLeft = (mousePosX / crossHairGridCubeWidth) * crossHairGridCubeWidth;
+				int horizontalLineTop = (mousePosY / crossHairGridCubeHeight) * crossHairGridCubeHeight;
+
+				Rectangle<int> verticalLine(verticalLineLeft, 0, verticalCrossHairThickness, this->getHeight());
+				g.setColour(verticalCrossHairColour);
+				g.fillRect(verticalLine);
+
+				Rectangle<int> horizontalLine(0, horizontalLineTop, this->getWidth(), horizontalCrossHairThickness);
+				g.setColour(horizontalCrossHairColour);
+				g.fillRect(horizontalLine);
+			}
 		}
     }
 }
@@ -754,7 +775,7 @@ void BCMComponent::sliderValueChanged(Slider* sliderThatWasMoved)
     String name = sliderThatWasMoved->getName();
     float value = static_cast<float>(sliderThatWasMoved->getValue());
 
-    DBG("BCMComponent::sliderValueChanged: " + name + ", orig value: " + String(value));
+    BCMDBG("BCMComponent::sliderValueChanged: " + name + ", orig value: " + String(value));
         
     if (bcmSlider && bcmSlider->hasParameter())
     {
@@ -770,7 +791,7 @@ void BCMComponent::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
     String itemSelected  = comboBoxThatHasChanged->getText();
     int    selectedIndex = comboBoxThatHasChanged->getSelectedItemIndex();
     
-    //DBG("BCMComponent::comboBoxChanged: " + name + ", selectedIndex: " + String(selectedIndex) + ", itemSelected: " + itemSelected);
+    //BCMDBG("BCMComponent::comboBoxChanged: " + name + ", selectedIndex: " + String(selectedIndex) + ", itemSelected: " + itemSelected);
         
     if (bcmComboBox && bcmComboBox->hasParameter())
     {
@@ -783,7 +804,7 @@ void BCMComponent::showHideEditToolbar() const
     Rectangle<int> editToolbarBounds(getLocalBounds().removeFromBottom(40).removeFromLeft(200));
     
     bool showEditToolbar = scopeSync.shouldShowEditToolbar();
-    DBG("BCMComponent::showHideEditToolbar - Show Edit Toolbar: " + String((showEditToolbar) ? "True" : "False"));
+    BCMDBG("BCMComponent::showHideEditToolbar - Show Edit Toolbar: " + String((showEditToolbar) ? "True" : "False"));
         
     if (showEditToolbar)
         editToolbarBounds.translate(-120, 0);
@@ -793,7 +814,7 @@ void BCMComponent::showHideEditToolbar() const
     scopeSync.toggleEditToolbar();
 
     showEditToolbar = scopeSync.shouldShowEditToolbar();
-    DBG("BCMComponent::showHideEditToolbar - Show Edit Toolbar (after toggle): " + String((showEditToolbar) ? "True" : "False"));
+    BCMDBG("BCMComponent::showHideEditToolbar - Show Edit Toolbar (after toggle): " + String((showEditToolbar) ? "True" : "False"));
 }
 
 void BCMComponent::hideSystemErrorBar()
@@ -853,7 +874,7 @@ void BCMComponent::mouseDown(const MouseEvent& event)
 	// we're actually getting one for this component here
 	if (event.eventComponent == this)
 	{
-		DBG("BCMComponent::mouseDown - component id: " + getComponentID());
+		BCMDBG("BCMComponent::mouseDown - component id: " + getComponentID());
 		
 		if (event.mods.isPopupMenu())
 			showPopupMenu();

@@ -25,6 +25,7 @@
  */
 
 #include "OSCServer.h"
+#include "../Core/ScopeSyncApplication.h"
 
 OSCServer::OSCServer() :
 	remoteChanged(false)
@@ -61,7 +62,7 @@ void OSCServer::updateListenerPort()
 {
 	if (connect(oscLocalPortNum.getValue()))
 	{
-		DBG("OSCServer::setLocalPortNumber - set local port number to: " + oscLocalPortNum.toString());
+		BCMDBG("OSCServer::setLocalPortNumber - set local port number to: " + oscLocalPortNum.toString());
 		return;
 	}
 
@@ -74,7 +75,7 @@ void OSCServer::updateListenerPort()
 
 void OSCServer::registerOSCListener(ListenerWithOSCAddress<MessageLoopCallback>* newListener, OSCAddress address)
 {
-	DBG("OSCServer::registerOSCListener - " + address.toString());
+	//BCMDBG("OSCServer::registerOSCListener - " + address.toString());
 	removeListener(newListener);
 	addListener(newListener, address);
 }
@@ -84,45 +85,54 @@ void OSCServer::unregisterOSCListener(ListenerWithOSCAddress<MessageLoopCallback
 	removeListener(listenerToRemove);
 }
 
+int OSCServer::getLocalPortNum() const
+{
+	return oscLocalPortNum.getValue();
+}
+
 bool OSCServer::sendFloatMessage(const OSCAddressPattern pattern, float valueToSend)
 {
-	DBG("OSCServer::sendFloatMessage");
+	String logMessage("OSCServer::sendFloatMessage - To Host: " + oscRemoteHost.toString() + ", Port: " + oscRemotePortNum.getValue() + ", address - " + pattern.toString() + ", value: " + String(valueToSend));
 
 	if (connectToListener())
 	{
 		OSCMessage message(pattern);
 		message.addFloat32(valueToSend);
 
-		DBG("OSCServer::sendFloatMessage: attempting to send to address - " + pattern.toString() + " value: " + String(valueToSend));
-
 		if (sender.send(message))
-			DBG("OSCServer::sendFloatMessage: attempt successful");
+			logMessage + " - attempt successful";
 		else
-			DBG("OSCServer::sendFloatMessage: attempt failed");
+			logMessage + " - attempt failed";
 
+		BCMDBG(logMessage);
 		return true;
 	}
 
+	logMessage += " - failed to connect to Listener";
+	BCMDBG(logMessage);
 	return false;
 }
 
 bool OSCServer::sendIntMessage(const OSCAddressPattern pattern, int valueToSend)
 {
+	String logMessage("OSCServer::sendIntMessage - To Host: " + oscRemoteHost.toString() + ", Port: " + oscRemotePortNum.getValue() + ", address - " + pattern.toString() + ", value: " + String(valueToSend));
+
 	if (connectToListener())
 	{
 		OSCMessage message(pattern);
 		message.addInt32(valueToSend);
 
-		DBG("OSCServer::sendIntMessage: attempting to send to address - " + pattern.toString() + " value: " + String(valueToSend));
-
 		if (sender.send(message))
-			DBG("OSCServer::sendIntMessage: attempt successful");
+			logMessage + " - attempt successful";
 		else
-			DBG("OSCServer::sendIntMessage: attempt failed");
+			logMessage + " - attempt failed";
 		
+		BCMDBG(logMessage);
 		return true;
 	}
 
+	logMessage += " - failed to connect to Listener";
+	BCMDBG(logMessage);
 	return false;
 }
 
@@ -150,7 +160,7 @@ bool OSCServer::connectToListener()
 void OSCServer::oscMessageReceived(const OSCMessage& message)
 {
 	(void)message;
-	DBG("OSCServer::oscMessageReceived: address - " + message.getAddressPattern().toString() + " type: " + message[0].getType());
+	BCMDBG("OSCServer::oscMessageReceived - Port: " + oscLocalPortNum.getValue() + ", address - " + message.getAddressPattern().toString() + " type: " + message[0].getType());
 }
 
 void OSCServer::valueChanged(Value& valueThatChanged)

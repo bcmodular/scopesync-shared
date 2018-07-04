@@ -28,7 +28,7 @@
 #ifndef SCOPESYNCAPPLICATION_H_INCLUDED
 #define SCOPESYNCAPPLICATION_H_INCLUDED
 
-#include <JuceHeader.h>
+#define BCMDBG(textToWrite) DBG(String(ProjectInfo::projectName) + "::" + textToWrite);
 
 namespace ScopeSyncApplication
 {

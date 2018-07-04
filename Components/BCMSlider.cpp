@@ -120,7 +120,7 @@ void BCMSlider::applyProperties(SliderProperties& props)
 
         setSkewFactor(parameter->getUISkewFactor());
         
-        // DBG("BCMSlider::applyProperties - " + getName() + " mapping to parameter: " + parameter->getName());
+        // BCMDBG("BCMSlider::applyProperties - " + getName() + " mapping to parameter: " + parameter->getName());
         parameter->mapToUIValue(getValueObject());
     }
     else
@@ -285,7 +285,7 @@ bool BCMSlider::getEncoderSnap(bool encoderSnap)
 
 bool BCMSlider::isLinearBar() const
 {
-    //DBG("BCMSlider::isLinearBar - slider style: " + String(getSliderStyle()));
+    //BCMDBG("BCMSlider::isLinearBar - slider style: " + String(getSliderStyle()));
 
     return getSliderStyle() == LinearBar
         || getSliderStyle() == LinearBarVertical;

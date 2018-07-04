@@ -160,7 +160,7 @@ void PluginProcessor::getStateInformation(MemoryBlock& destData)
 
     copyXmlToBinary(root, destData);
 
-    DBG("PluginProcessor::getStateInformation - Storing XML: " + root.createDocument(""));
+    BCMDBG("PluginProcessor::getStateInformation - Storing XML: " + root.createDocument(""));
 }
 
 void PluginProcessor::setStateInformation(const void* data, int sizeInBytes)
@@ -169,7 +169,7 @@ void PluginProcessor::setStateInformation(const void* data, int sizeInBytes)
     // created by the getStateInformation() call.
     ScopedPointer<XmlElement> root = getXmlFromBinary(data, sizeInBytes);
 
-	DBG("PluginProcessor::getStateInformation - Retrieving XML: " + root->createDocument(""));
+	BCMDBG("PluginProcessor::getStateInformation - Retrieving XML: " + root->createDocument(""));
 
     if (root)
     {
@@ -197,7 +197,7 @@ void PluginProcessor::setStateInformation(const void* data, int sizeInBytes)
     }
     else
     {
-        DBG("PluginProcessor::setStateInformation - Could not restore XML");
+        BCMDBG("PluginProcessor::setStateInformation - Could not restore XML");
     }
 }
 

@@ -237,7 +237,7 @@ void ConfigurationChooser::timerCallback()
 
 void ConfigurationChooser::actionListenerCallback(const String& message)
 {
-    DBG("ConfigurationChooser::actionListenerCallback");
+    BCMDBG("ConfigurationChooser::actionListenerCallback");
     
     if (message == "configurationlibraryupdated")
         attachToTree();

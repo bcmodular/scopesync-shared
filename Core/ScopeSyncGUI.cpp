@@ -187,7 +187,7 @@ BCMParameter* ScopeSyncGUI::getUIMapping(Identifier compTypeId, const String& co
 
 void ScopeSyncGUI::addTabbedComponent(BCMTabbedComponent* tabbedComponent)
 {
-    // DBG("ScopeSyncGUI::addTabbedComponent - " + tabbedComponent->getName());
+    // BCMDBG("ScopeSyncGUI::addTabbedComponent - " + tabbedComponent->getName());
     tabbedComponents.add(tabbedComponent);
 }
 
@@ -242,8 +242,8 @@ void ScopeSyncGUI::createGUI(bool forceReload)
 
     XmlElement& layoutXml = scopeSync.getLayout(errorText, errorDetails, forceReload);
 
-	DBG("**************************************");
-	DBG(layoutXml.createDocument(""));
+	BCMDBG("**************************************");
+	BCMDBG(layoutXml.createDocument(""));
 
     if (errorText.isNotEmpty())
         scopeSync.setSystemError(errorText, errorDetails);
@@ -340,7 +340,7 @@ void ScopeSyncGUI::setupLookAndFeel(XmlElement& lookAndFeelXML) const
         String layoutDirectory = scopeSync.getLayoutDirectory();
         
         String id = lookAndFeelXML.getStringAttribute("id");
-        //DBG("ScopeSyncGUI::setupLookAndFeel: Setting up LookAndFeel: id = " + id);
+        //BCMDBG("ScopeSyncGUI::setupLookAndFeel: Setting up LookAndFeel: id = " + id);
 
         BCMLookAndFeel* bcmLookAndFeel;
 
@@ -351,7 +351,7 @@ void ScopeSyncGUI::setupLookAndFeel(XmlElement& lookAndFeelXML) const
 
             if (parentBCMLookAndFeel != nullptr)
             {
-                //DBG("ScopeSyncGUI::setupLookAndFeel: Found parent: id = " + parentid);
+                //BCMDBG("ScopeSyncGUI::setupLookAndFeel: Found parent: id = " + parentid);
                 bcmLookAndFeel = new BCMLookAndFeel(lookAndFeelXML, *parentBCMLookAndFeel, layoutDirectory);
             }
             else
@@ -368,12 +368,12 @@ void ScopeSyncGUI::setupLookAndFeel(XmlElement& lookAndFeelXML) const
         }
         else
         {
-            // DBG("ScopeSyncGUI::setupLookAndFeel: Failed to set up LookAndFeel id: " + id);
+            // BCMDBG("ScopeSyncGUI::setupLookAndFeel: Failed to set up LookAndFeel id: " + id);
         }
     }
     else
     {
-        // DBG("ScopeSyncGUI::setupLookAndFeel: Must supply an id for a LookAndFeel tag");
+        // BCMDBG("ScopeSyncGUI::setupLookAndFeel: Must supply an id for a LookAndFeel tag");
     }
     return;
 }

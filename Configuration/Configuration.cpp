@@ -318,8 +318,8 @@ void Configuration::loadLoaderLayout()
 		int numBytes;
 		layoutElement = XmlDocument::parse(BinaryData::getNamedResource(BinaryData::namedResourceList[binaryDataIndex], numBytes));
 
-		DBG("Configuration::loadLoaderLayout - XML: ");
-		DBG(layoutElement->createDocument(String()));
+		BCMDBG("Configuration::loadLoaderLayout - XML: ");
+		BCMDBG(layoutElement->createDocument(String()));
 	}
 	else
 	{
@@ -529,7 +529,7 @@ void Configuration::migrateFromV102()
 					scopeParamId    = scopeOSCParamID.paramId;
 				}
 
-				DBG("Configuration::migrateFromV102 - migrating scopeCode: " + scopeCode + " to: " + String(scopeParamGroup) + ":" + String(scopeParamId));
+				BCMDBG("Configuration::migrateFromV102 - migrating scopeCode: " + scopeCode + " to: " + String(scopeParamGroup) + ":" + String(scopeParamId));
 				parameter.setProperty(Ids::scopeParamGroup, scopeParamGroup, nullptr);
 				parameter.setProperty(Ids::scopeParamId,    scopeParamId, nullptr);
                 
@@ -778,7 +778,7 @@ void Configuration::addStyleOverrideToAll(const Identifier& componentType,
             && componentLookup[i]->type == componentType
             && componentLookup[i]->widgetTemplateId.equalsIgnoreCase(widgetTemplateId))
         {
-            DBG("Configuration::addStyleOverrideToAll - name: " + componentLookup[i]->name + ", wtid: " + widgetTemplateId);
+            BCMDBG("Configuration::addStyleOverrideToAll - name: " + componentLookup[i]->name + ", wtid: " + widgetTemplateId);
             ValueTree styleOverride(newStyleOverride.createCopy());
             addStyleOverride(componentType, componentLookup[i]->name, widgetTemplateId, styleOverride, -1, um);
         }
@@ -866,7 +866,7 @@ void Configuration::valueTreePropertyChanged(ValueTree& treeWhosePropertyHasChan
     {
         String     componentName = treeWhosePropertyHasChanged.getProperty(Ids::name);
         Identifier componentType = treeWhosePropertyHasChanged.getType();
-        DBG("Configuration::valueTreePropertyChanged - Style Override's Component Name has changed to: " + componentName);
+        BCMDBG("Configuration::valueTreePropertyChanged - Style Override's Component Name has changed to: " + componentName);
 
         for (int i = 0; i < componentLookup.size(); i++)
         {
@@ -875,7 +875,7 @@ void Configuration::valueTreePropertyChanged(ValueTree& treeWhosePropertyHasChan
             {
                 String widgetTemplateId = componentLookup[i]->widgetTemplateId;
                 treeWhosePropertyHasChanged.setProperty(Ids::widgetTemplateId, widgetTemplateId, nullptr);
-                DBG("Configuration::valueTreePropertyChanged - Updated widgetTemplateId to: " + widgetTemplateId);
+                BCMDBG("Configuration::valueTreePropertyChanged - Updated widgetTemplateId to: " + widgetTemplateId);
             }
         }
     }
@@ -942,7 +942,7 @@ XmlElement& Configuration::loadLayoutXml(String& errorText, String& errorDetails
     {
         layoutFile = File(layoutFilename);
         
-        DBG("ScopeSync::loadLayoutFile - Trying to load: " + layoutFile.getFullPathName());
+        BCMDBG("ScopeSync::loadLayoutFile - Trying to load: " + layoutFile.getFullPathName());
 
         XmlDocument               layoutDocument(layoutFile);
         ScopedPointer<XmlElement> loadedLayoutXml = layoutDocument.getDocumentElement();
@@ -1138,7 +1138,7 @@ ValueTree Configuration::getStyleOverride(const Identifier& componentType, const
 {
     ValueTree componentStyleOverrides = configurationRoot.getChildWithName(Ids::styleOverrides).getChildWithName(getMappingParentId(componentType));
 
-    // DBG("Configuration::getStyleOverride - componentType: " + String(componentType) + ", componentName: " + componentName + ", overrides valid: " + String(componentStyleOverrides.isValid()));
+    // BCMDBG("Configuration::getStyleOverride - componentType: " + String(componentType) + ", componentName: " + componentName + ", overrides valid: " + String(componentStyleOverrides.isValid()));
     return componentStyleOverrides.getChildWithProperty(Ids::name, componentName);
 }
 

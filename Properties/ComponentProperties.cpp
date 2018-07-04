@@ -57,6 +57,12 @@ void ComponentProperties::initialise()
     showCrossHair                = false;
     horizontalCrossHairThickness = 10;
     verticalCrossHairThickness   = 10;
+	crossHairGridCubeWidth       = 1;
+	crossHairGridCubeHeight      = 1;
+	crossHairDetectFromX         = 0;
+	crossHairDetectFromY         = 0;
+	crossHairDetectWidth         = -1;
+	crossHairDetectHeight        = -1;
     horizontalCrossHairColour    = "00000000";
     verticalCrossHairColour      = "00000000";
 }
@@ -69,6 +75,12 @@ void ComponentProperties::copyProperties(ComponentProperties& parentComponentPro
     showCrossHair                = parentComponentProperties.showCrossHair;
     horizontalCrossHairThickness = parentComponentProperties.horizontalCrossHairThickness;
     verticalCrossHairThickness   = parentComponentProperties.verticalCrossHairThickness;
+	crossHairGridCubeWidth       = parentComponentProperties.crossHairGridCubeWidth;
+	crossHairGridCubeHeight      = parentComponentProperties.crossHairGridCubeHeight;
+	crossHairDetectFromX         = parentComponentProperties.crossHairDetectFromX;
+	crossHairDetectFromY         = parentComponentProperties.crossHairDetectFromY;
+	crossHairDetectWidth         = parentComponentProperties.crossHairDetectWidth;
+	crossHairDetectHeight        = parentComponentProperties.crossHairDetectHeight;
     horizontalCrossHairColour    = parentComponentProperties.horizontalCrossHairColour;
     verticalCrossHairColour      = parentComponentProperties.verticalCrossHairColour;
 }
@@ -91,7 +103,13 @@ void ComponentProperties::setValuesFromXML(XmlElement& componentXML)
     showCrossHair                = componentXML.getBoolAttribute("showcrosshair", showCrossHair);
     horizontalCrossHairThickness = componentXML.getIntAttribute("horizontalcrosshairthickness", horizontalCrossHairThickness);
     verticalCrossHairThickness   = componentXML.getIntAttribute("verticalcrosshairthickness", verticalCrossHairThickness);
-    horizontalCrossHairColour    = componentXML.getStringAttribute("horizontalcrosshaircolour", horizontalCrossHairColour);
+	crossHairGridCubeWidth       = componentXML.getIntAttribute("crosshairgridcubewidth", crossHairGridCubeWidth);
+	crossHairGridCubeHeight      = componentXML.getIntAttribute("crosshairgridcubeheight", crossHairGridCubeHeight);
+	crossHairDetectFromX         = componentXML.getIntAttribute("crosshairdetectfromx", crossHairDetectFromX);
+	crossHairDetectFromY         = componentXML.getIntAttribute("crosshairdetectfromy", crossHairDetectFromY);
+	crossHairDetectWidth         = componentXML.getIntAttribute("crosshairdetectwidth", crossHairDetectWidth);
+	crossHairDetectHeight        = componentXML.getIntAttribute("crosshairdetectheight", crossHairDetectHeight);
+	horizontalCrossHairColour    = componentXML.getStringAttribute("horizontalcrosshaircolour", horizontalCrossHairColour);
     verticalCrossHairColour      = componentXML.getStringAttribute("verticalcrosshaircolour", verticalCrossHairColour);
 }
 

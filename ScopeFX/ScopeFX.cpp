@@ -83,7 +83,7 @@ ScopeFX::ScopeFX()
 	
     scopeSync = new ScopeSync(this);
 
-    DBG("ScopeFX::ScopeFX - Number of module instances: " + String(ScopeSync::getNumScopeSyncInstances()));
+    BCMDBG("ScopeFX::ScopeFX - Number of module instances: " + String(ScopeSync::getNumScopeSyncInstances()));
 
 	scopeSync->getParameterController()->getFixedParameterByName("Show")->mapToUIValue(shouldShowWindow);
     shouldShowWindow.addListener(this);
@@ -135,7 +135,7 @@ void ScopeFX::snapshot()
 
 void ScopeFX::syncScope()
 {
-	DBG("ScopeFX::syncScope - starting timer");
+	BCMDBG("ScopeFX::syncScope - starting timer");
 	// Race conditions on loading module mean we need to delay this
 	// for a little bit
 	startTimer(1000);
@@ -143,7 +143,7 @@ void ScopeFX::syncScope()
 
 void ScopeFX::timerCallback()
 {
-	DBG("ScopeFX::timerCallback - setting sync Scope value");
+	BCMDBG("ScopeFX::timerCallback - setting sync Scope value");
 	stopTimer();
 	syncScopeValue.fetch_add(1, std::memory_order_relaxed);
 }
@@ -151,8 +151,8 @@ void ScopeFX::timerCallback()
 void ScopeFX::setPluginHostIP(StringRef address)
 {
 	StringArray const octets(StringArray::fromTokens(ipAddressFromHostName(address, pluginPort.toString()), ".", String()));
-	DBG("ScopeFX::setPluginHostIP - address passed in: " + address);
-	DBG("ScopeFX::setPluginHostIP - num octets: " + String(octets.size()) + ", " + octets[0] + ";" + octets[1] + ";" + octets[2] + ";" + octets[3]);
+	BCMDBG("ScopeFX::setPluginHostIP - address passed in: " + address);
+	BCMDBG("ScopeFX::setPluginHostIP - num octets: " + String(octets.size()) + ", " + octets[0] + ";" + octets[1] + ";" + octets[2] + ";" + octets[3]);
 	setPluginHostIP(octets[0].getIntValue(), octets[1].getIntValue(), octets[2].getIntValue(), octets[3].getIntValue());
 }
 

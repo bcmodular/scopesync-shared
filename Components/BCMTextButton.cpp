@@ -44,7 +44,7 @@ BCMTextButton::~BCMTextButton() {};
 
 void BCMTextButton::applyProperties(TextButtonProperties& props)
 {
-	DBG("BCMTextButton::applyProperties - setting up button: " + getName());
+	BCMDBG("BCMTextButton::applyProperties - setting up button: " + getName());
 
     applyWidgetProperties(props);
     mapsToParameter = false;
@@ -109,7 +109,7 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
     
     if (mapsToParameter && parameter->isDiscrete())
     {
-        DBG("BCMTextButton::applyProperties - mapping found: " + mapping.toXmlString());
+        BCMDBG("BCMTextButton::applyProperties - mapping found: " + mapping.toXmlString());
         
 		buttonText = parameter->getShortDescription();
 		tooltip    = parameter->getFullDescription(scopeSync.showParamIDInTooltips());
@@ -118,7 +118,7 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
         
         // Grab the correct mapping type
         mappingType = static_cast<MappingType>(int(mapping.getProperty(Ids::type)));
-        // DBG("BCMTextButton::applyProperties - mappingType: " + String(mappingType));
+        // BCMDBG("BCMTextButton::applyProperties - mappingType: " + String(mappingType));
         
         // For mapped buttons, we want them to send their
         // "down" value parameter changes on mouse down
@@ -133,7 +133,7 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
         if (mapping.getProperty(Ids::radioGroup).toString().isNotEmpty())
         {
 			rgId = mapping.getProperty(Ids::radioGroup).toString().hashCode();
-            DBG("BCMTextButton::applyProperties - radioGroupId: " + String(rgId));
+            BCMDBG("BCMTextButton::applyProperties - radioGroupId: " + String(rgId));
         }
                 
         // Set up the button display type and the initial button text
@@ -163,12 +163,12 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
                 if (settingName == settingDown)
                 {
                     downSettingIdx = i;
-                    // DBG("BCMTextButton::applyProperties - Found mapped parameter settings - down: " + settingDown);
+                    // BCMDBG("BCMTextButton::applyProperties - Found mapped parameter settings - down: " + settingDown);
                 }
                 else if (settingName == settingUp)
                 {
                     upSettingIdx = i;
-                    // DBG("BCMTextButton::applyProperties - Found mapped parameter settings - up: " + settingUp);
+                    // BCMDBG("BCMTextButton::applyProperties - Found mapped parameter settings - up: " + settingUp);
                 }
             }
 
@@ -220,7 +220,7 @@ void BCMTextButton::applyProperties(TextButtonProperties& props)
     else
     {
         buttonText = "MAP ERROR";
-        // DBG("BCMTextButton::BCMTextButton - No values");
+        // BCMDBG("BCMTextButton::BCMTextButton - No values");
         mapsToParameter = false;
     }
 
@@ -301,7 +301,7 @@ void BCMTextButton::setNextValues()
 
 void BCMTextButton::mouseDown(const MouseEvent& event)
 {
-    DBG("BCMTextButton::mouseDown - button clicked: " + getName());
+    BCMDBG("BCMTextButton::mouseDown - button clicked: " + getName());
 
     if (!isCommandButton && event.mods.isPopupMenu())
         showPopupMenu();
@@ -310,7 +310,7 @@ void BCMTextButton::mouseDown(const MouseEvent& event)
 		if (hasParameter())
             getParameter()->beginChangeGesture();
 		else
-			DBG("BCMTextButton::mouseDown - button " + getName() + " doesn't have a parameter");
+			BCMDBG("BCMTextButton::mouseDown - button " + getName() + " doesn't have a parameter");
 	
         TextButton::mouseDown(event);
     }
@@ -318,7 +318,7 @@ void BCMTextButton::mouseDown(const MouseEvent& event)
 
 void BCMTextButton::mouseUp(const MouseEvent& event)
 {
-    DBG("BCMTextButton::mouseUp - button clicked: " + getName());
+    BCMDBG("BCMTextButton::mouseUp - button clicked: " + getName());
 
     if (!(event.mods.isPopupMenu()))
     {
@@ -341,7 +341,7 @@ void BCMTextButton::mouseUp(const MouseEvent& event)
 
 void BCMTextButton::clicked(const ModifierKeys& modifiers)
 {
-    DBG("BCMTextButton::clicked - button clicked: " + getName());
+    BCMDBG("BCMTextButton::clicked - button clicked: " + getName());
 
 	if (getName().equalsIgnoreCase("snapshot"))
 	{

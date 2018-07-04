@@ -69,26 +69,26 @@ void BCMWidget::applyBounds() const
 {
 	if (componentBounds.boundsType == BCMComponentBounds::relativeRectangle)
 	{
-		DBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
+		BCMDBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
 		scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getComponentID());
 		
 		if (parentWidget->getParentComponent() != nullptr)
 		{
-			DBG("BCMWidget::applyBounds - component's parent: " + parentWidget->getParentComponent()->getComponentID());
+			BCMDBG("BCMWidget::applyBounds - component's parent: " + parentWidget->getParentComponent()->getComponentID());
 			scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getParentComponent()->getComponentID());
 		}
 		else
 		{
-			DBG("BCMWidget::applyBounds - component has no parent");
+			BCMDBG("BCMWidget::applyBounds - component has no parent");
 			scopeSync.logMessage("BCMWidget::applyBounds - component has no parent");
 		}
 
 		RelativeRectangle rectBounds(componentBounds.relativeRectangleString);
 		rectBounds.applyToComponent(*parentWidget);
-		DBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID() + ", set relativeRectangle bounds: " + componentBounds.relativeRectangleString);
+		BCMDBG("BCMWidget::applyBounds - component: " + parentWidget->getComponentID() + ", set relativeRectangle bounds: " + componentBounds.relativeRectangleString);
 		scopeSync.logMessage("BCMWidget::applyBounds - component: " + parentWidget->getComponentID() + ", set relativeRectangle bounds: " + componentBounds.relativeRectangleString);
 
-		DBG("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
+		BCMDBG("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
 		scopeSync.logMessage("BCMWidget::applyBounds - result: x=" + String(parentWidget->getX()) + ", y=" + String(parentWidget->getY()) + ", width=" + String(parentWidget->getWidth()) + ", height=" + String(parentWidget->getHeight()));
 
 		if (debugWidgetPosition)
@@ -164,12 +164,12 @@ void BCMWidget::getAllCommands(Array<CommandID>& commands)
     for (int i = 1; i < commands.size(); i++)
         commandIDList += ", " + String(commands[i]);
 
-    //DBG("BCMWidget::getAllCommands - current array: " + commandIDList);
+    //BCMDBG("BCMWidget::getAllCommands - current array: " + commandIDList);
 }    
 
 void BCMWidget::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result)
 {
-    //DBG("BCMWidget::getCommandInfo - commandID: " + String(commandID));
+    //BCMDBG("BCMWidget::getCommandInfo - commandID: " + String(commandID));
     
     switch (commandID)
     {
@@ -198,7 +198,7 @@ void BCMWidget::getCommandInfo(CommandID commandID, ApplicationCommandInfo& resu
 
 bool BCMWidget::perform(const InvocationInfo& info)
 {
-    //DBG("BCMWidget::perform - commandID: " + String(info.commandID));
+    //BCMDBG("BCMWidget::perform - commandID: " + String(info.commandID));
    
     switch (info.commandID)
     {
@@ -387,7 +387,7 @@ void BCMParameterWidget::getCommandInfo(CommandID commandID, ApplicationCommandI
 
 bool BCMParameterWidget::perform(const InvocationInfo& info)
 {
-    //DBG("BCMParameterWidget::perform - commandID: " + String(info.commandID));
+    //BCMDBG("BCMParameterWidget::perform - commandID: " + String(info.commandID));
    
     switch (info.commandID)
     {
@@ -490,7 +490,7 @@ void BCMParameterWidget::setupMapping(const Identifier& componentType,     const
 
     if (mapping.isValid())
     {
-        DBG("BCMParameterWidget::setupMapping - Using direct mapping: " + componentType.toString() + "/" + componentName);
+        BCMDBG("BCMParameterWidget::setupMapping - Using direct mapping: " + componentType.toString() + "/" + componentName);
         if (parameter != nullptr)
             mapsToParameter = true;
         
@@ -499,7 +499,7 @@ void BCMParameterWidget::setupMapping(const Identifier& componentType,     const
     
     if (mappingParentType.isValid() && mappingParent.isNotEmpty())
     {
-        DBG("BCMParameterWidget::setupMapping - Failing back to mappingParent: " + mappingComponentType.toString() + "/" + mappingComponentName);
+        BCMDBG("BCMParameterWidget::setupMapping - Failing back to mappingParent: " + mappingComponentType.toString() + "/" + mappingComponentName);
         // Otherwise fail back to a mappingParent (set in the layout XML)
         mappingComponentType = mappingParentType;
         mappingComponentName = mappingParent;
@@ -510,7 +510,7 @@ void BCMParameterWidget::setupMapping(const Identifier& componentType,     const
             mapsToParameter = true;
     }
 
-    DBG("BCMParameterWidget::setupMapping - No mapping or parent mapping found for component: " + componentType.toString() + "/" + componentName);
+    BCMDBG("BCMParameterWidget::setupMapping - No mapping or parent mapping found for component: " + componentType.toString() + "/" + componentName);
 }
 
 void BCMParameterWidget::deleteMapping()
@@ -527,7 +527,7 @@ void BCMParameterWidget::editMapping()
         calloutHeight = 134;
 
     ConfigurationManagerCalloutWindow* configurationManagerCalloutWindow = new ConfigurationManagerCalloutWindow(scopeSyncGUI.getScopeSync(), 400, calloutHeight);
-    DBG("BCMParameterWidget::editMapping from component: " + parentWidget->getName() + " - " + mappingComponentType.toString() + "/" + mappingComponentName);
+    BCMDBG("BCMParameterWidget::editMapping from component: " + parentWidget->getName() + " - " + mappingComponentType.toString() + "/" + mappingComponentName);
     configurationManagerCalloutWindow->setMappingPanel(mapping, mappingComponentType, mappingComponentName);
     configurationManagerCalloutWindow->addChangeListener(this);
     CallOutBox::launchAsynchronously(configurationManagerCalloutWindow, parentWidget->getScreenBounds(), nullptr);

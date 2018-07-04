@@ -138,7 +138,7 @@ BCMLookAndFeel::BCMLookAndFeel(const XmlElement& lookAndFeelXML, const BCMLookAn
 
 BCMLookAndFeel::~BCMLookAndFeel()
 {
-	DBG("BCMLookAndFeel::~BCMLookAndFeel - destroying: " + id);
+	BCMDBG("BCMLookAndFeel::~BCMLookAndFeel - destroying: " + id);
 };
 
 const String& BCMLookAndFeel::getId() const { return id; };
@@ -416,12 +416,12 @@ void BCMLookAndFeel::getColoursFromXml(const String& colourSet, const XmlElement
             lookAndFeelColours.set(popupMenuColours[colourId], colourValue);
         else if (colourSet == "tooltip" && tooltipWindowColours.contains(colourId))
         {
-            DBG("BCMLookAndFeel::getColoursFromXml - tooltip: " + String(tooltipWindowColours[colourId]) + ":" + String(colourValue));
+            BCMDBG("BCMLookAndFeel::getColoursFromXml - tooltip: " + String(tooltipWindowColours[colourId]) + ":" + String(colourValue));
             lookAndFeelColours.set(tooltipWindowColours[colourId], colourValue);
         }
         else if (colourSet == "bubblecomponent" && bubbleComponentColours.contains(colourId))
         {
-            DBG("BCMLookAndFeel::getColoursFromXml - bubblecomponent: " + String(bubbleComponentColours[colourId]) + ":" + String(colourValue));
+            BCMDBG("BCMLookAndFeel::getColoursFromXml - bubblecomponent: " + String(bubbleComponentColours[colourId]) + ":" + String(colourValue));
             lookAndFeelColours.set(bubbleComponentColours[colourId], colourValue);
         }
     }

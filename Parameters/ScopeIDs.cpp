@@ -25,6 +25,7 @@
  */
 
 #include "ScopeIDs.h"
+#include "../Core/ScopeSyncApplication.h"
 
 ScopeOSCParamID::ScopeOSCParamID(int pg, int pId) 
 	: paramGroup(pg), paramId(pId)
@@ -71,7 +72,7 @@ P1,P2,P3,P4,P5,P6,P7,P8",
 		else
 			++paramId;
 
-		DBG("ScopeCodeMapper::ScopeCodeMapper - created mapping for scopeCode: " + scopeCode + ", to: " + String(scopeID->paramGroup) + ":" + String(scopeID->paramId));
+		BCMDBG("ScopeCodeMapper::ScopeCodeMapper - created mapping for scopeCode: " + scopeCode + ", to: " + String(scopeID->paramGroup) + ":" + String(scopeID->paramId));
 	}
 }
 

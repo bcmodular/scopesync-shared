@@ -108,6 +108,12 @@ private:
 
 	int horizontalCrossHairThickness;
 	int verticalCrossHairThickness;
+	int crossHairGridCubeWidth;
+	int crossHairGridCubeHeight;
+	int crossHairDetectFromX;
+	int crossHairDetectFromY;
+	int crossHairDetectWidth;
+	int crossHairDetectHeight;
 	Colour horizontalCrossHairColour;
 	Colour verticalCrossHairColour;
 

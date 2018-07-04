@@ -833,7 +833,7 @@ void UserSettings::rebuildFileLibrary(bool scanConfigurations, bool scanLayouts,
     
 void UserSettings::RebuildFileLibrary::run()
 {
-    DBG("UserSettings::RebuildFileLibrary::run");
+    BCMDBG("UserSettings::RebuildFileLibrary::run");
 
     setStatusMessage("Searching for files in library locations...");
 
@@ -1024,7 +1024,7 @@ void UserSettings::RebuildFileLibrary::updateConfigurationLibrary(const Array<Fi
 
         if (loadedConfigurationXml == nullptr || !(loadedConfigurationXml->hasTagName(Ids::configuration)))
         {
-            DBG("UserSettings::updateConfigurationLibrary - Not a valid ScopeSync Configuration: " + configurationFiles[i].getFullPathName());
+            BCMDBG("UserSettings::updateConfigurationLibrary - Not a valid ScopeSync Configuration: " + configurationFiles[i].getFullPathName());
             continue;
         }
         
@@ -1032,7 +1032,7 @@ void UserSettings::RebuildFileLibrary::updateConfigurationLibrary(const Array<Fi
 
         if (!configuration.hasType(Ids::configuration))
         {
-            DBG("UserSettings::updateConfigurationLibrary - The document contains errors and couldn't be parsed: " + configurationFiles[i].getFullPathName());
+            BCMDBG("UserSettings::updateConfigurationLibrary - The document contains errors and couldn't be parsed: " + configurationFiles[i].getFullPathName());
             continue;
         }
         
@@ -1072,7 +1072,7 @@ void UserSettings::RebuildFileLibrary::updatePresetLibrary(const Array<File>& pr
 
         if (loadedPresetFileXml == nullptr || !(loadedPresetFileXml->hasTagName(Ids::presets)))
         {
-            DBG("UserSettings::updatePresetLibrary - Not a valid ScopeSync Preset File: " + presetFiles[i].getFullPathName());
+            BCMDBG("UserSettings::updatePresetLibrary - Not a valid ScopeSync Preset File: " + presetFiles[i].getFullPathName());
             continue;
         }
         
@@ -1080,7 +1080,7 @@ void UserSettings::RebuildFileLibrary::updatePresetLibrary(const Array<File>& pr
 
         if (!presetFile.hasType(Ids::presets))
         {
-            DBG("UserSettings::updatePresetLibrary - The document contains errors and couldn't be parsed: " + presetFiles[i].getFullPathName());
+            BCMDBG("UserSettings::updatePresetLibrary - The document contains errors and couldn't be parsed: " + presetFiles[i].getFullPathName());
             continue;
         }
         

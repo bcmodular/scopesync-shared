@@ -56,7 +56,7 @@ void BCMParameterController::initialise()
 
 void BCMParameterController::addFixedScopeParameter(const String& name, const int scopeParamId)
 {
-	DBG("BCMParameterController::addFixedScopeParameter - adding: " + name + ", scopeParamId: " + String(scopeParamId));
+	BCMDBG("BCMParameterController::addFixedScopeParameter - adding: " + name + ", scopeParamId: " + String(scopeParamId));
 
     ValueTree tmpParameter = Configuration::getDefaultFixedParameter();
     tmpParameter.setProperty(Ids::name, name, nullptr);
@@ -103,12 +103,12 @@ void BCMParameterController::addParameter(ValueTree parameterDefinition, bool fi
 
     if (fixedParameter)
 	{
-		DBG("BCMParameterController::addParameter - added Fixed Parameter: " + name);
+		BCMDBG("BCMParameterController::addParameter - added Fixed Parameter: " + name);
     	fixedParameters.add(parameter);
 	}
     else
 	{
-		DBG("BCMParameterController::addParameter - added Dynamic Parameter: " + name);
+		BCMDBG("BCMParameterController::addParameter - added Dynamic Parameter: " + name);
         dynamicParameters.add(parameter);
 	}
 
@@ -139,7 +139,7 @@ void BCMParameterController::setupHostParameters()
 		// Try to bind to existing parameters first
 		if (i < numPluginParameters)
 		{
-			DBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", binding to existing param: " + String(i));
+			BCMDBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", binding to existing param: " + String(i));
 			hostParameter = static_cast<HostParameter*>(pluginParameters[i]);
 			hostParameter->setBCMParameter(dynamicParameter);
 			dynamicParameter->setHostParameter(hostParameter);
@@ -150,7 +150,7 @@ void BCMParameterController::setupHostParameters()
 		{
 			// Add extra parameters.
 			// In the case of dynamic parameter counts, we'll need to add all of them here
-			DBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", adding new parameter: " + String(i));
+			BCMDBG("BCMParameterController::setupHostParameters: numPluginParameters = " + String(numPluginParameters) + ", adding new parameter: " + String(i));
 			scopeSync->getPluginProcessor()->addParameter(hostParameter = new HostParameter());
 			hostParameter->setBCMParameter(dynamicParameter);
 			dynamicParameter->setHostParameter(hostParameter);
@@ -163,7 +163,7 @@ void BCMParameterController::setupHostParameters()
 
 void BCMParameterController::reset()
 {
-	DBG("BCMParameterController::reset - clearing parameters array");
+	BCMDBG("BCMParameterController::reset - clearing parameters array");
     parameters.clear();
 	parametersByName.clear();
     dynamicParameters.clear();
@@ -171,7 +171,7 @@ void BCMParameterController::reset()
 #ifdef __DLL_EFFECT__
 	for (auto fixedParameter : fixedParameters)
 	{
-		DBG("BCMParameterController::reset - Added parameter: " + fixedParameter->getName());
+		BCMDBG("BCMParameterController::reset - Added parameter: " + fixedParameter->getName());
 		fixedParameter->getScopeOSCParameter().setDeviceUID(scopeSync->getDeviceUID());
 		parameters.add(fixedParameter);
 		parametersByName.set(fixedParameter->getName(), fixedParameter);
@@ -264,7 +264,7 @@ void BCMParameterController::storeParameterValues()
 
 	parameterValueStore = XmlElement("parametervalues");
 	parameterValueStore.addTextElement(String(floatArrayToString(currentParameterValues, currentParameterValues.size())));
-	DBG("ScopeSync::storeParameterValues - Storing XML: " + parameterValueStore.createDocument(""));
+	BCMDBG("ScopeSync::storeParameterValues - Storing XML: " + parameterValueStore.createDocument(""));
 
 #endif // __DLL_EFFECT__
 }
@@ -273,7 +273,7 @@ void BCMParameterController::storeParameterValues(XmlElement& parameterValues)
 {
     parameterValueStore = XmlElement(parameterValues);
     
-    //DBG("ScopeSync::storeParameterValues - Storing XML: " + parameterValueStore.createDocument(""));
+    //BCMDBG("ScopeSync::storeParameterValues - Storing XML: " + parameterValueStore.createDocument(""));
 }
 
 void BCMParameterController::restoreParameterValues()
@@ -290,7 +290,7 @@ void BCMParameterController::restoreParameterValues()
 	// Make sure Scope really does have the current values by performing a snapshot
 	snapshot();
     
-    DBG("ScopeSync::restoreParameterValues - Restoring XML: " + parameterValueStore.createDocument(""));
+    BCMDBG("ScopeSync::restoreParameterValues - Restoring XML: " + parameterValueStore.createDocument(""));
 #endif // __DLL_EFFECT__
 }
 

@@ -10,6 +10,7 @@
 
 #include "BCMTreeView.h"
 #include "../Core/Global.h"
+#include "../Core/ScopeSyncApplication.h"
 
 BCMTreeView::BCMTreeView(UndoManager& um, BCMTreeItem* root, PropertiesFile& props)
     : undoManager(um),
@@ -102,7 +103,7 @@ void BCMTreeView::deleteSelectedItems() const
     for (int i = 0; i < tree.getNumSelectedItems(); i++)
     {
         identifiers.add(tree.getSelectedItem(i)->getItemIdentifierString());
-        DBG("BCMTreeView::deleteSelectedItems - added item to delete: " + identifiers[i]);
+        BCMDBG("BCMTreeView::deleteSelectedItems - added item to delete: " + identifiers[i]);
     }
 
     for (int i = 0; i < identifiers.size(); i++)
@@ -366,7 +367,7 @@ private:
 
 void BCMTreeItem::itemSelectionChanged(bool isNowSelected)
 {
-    DBG("BCMTreeItem::itemSelectionChanged - isNowSelected: " + String((isNowSelected) ? "True" : "False") + ", item: " + getUniqueName());
+    BCMDBG("BCMTreeItem::itemSelectionChanged - isNowSelected: " + String((isNowSelected) ? "True" : "False") + ", item: " + getUniqueName());
 
     if (isNowSelected)
     {
@@ -397,7 +398,7 @@ void BCMTreeItem::cancelDelayedSelectionTimer()
 
 void BCMTreeItem::storeSelectionOnAdd() const
 {
-    DBG("BCMTreeItem::storeSelectionOnAdd - Row Number: " + String(getRowNumberInTree() + 1));
+    BCMDBG("BCMTreeItem::storeSelectionOnAdd - Row Number: " + String(getRowNumberInTree() + 1));
 
     BCMTreeView* bcmTree = dynamic_cast<BCMTreeView*>(getOwnerView()->getParentComponent());
     bcmTree->storeSelectedItem(getRowNumberInTree() + 1);
@@ -412,7 +413,7 @@ void BCMTreeItem::storeSelectionOnDelete() const
         rowNumber -= 1;
     }
 
-    DBG("BCMTreeItem::storeSelectionOnDelete - Row Number: " + String(rowNumber));
+    BCMDBG("BCMTreeItem::storeSelectionOnDelete - Row Number: " + String(rowNumber));
 
     BCMTreeView* bcmTree = dynamic_cast<BCMTreeView*> (getOwnerView()->getParentComponent());
     bcmTree->storeSelectedItem(rowNumber);

@@ -50,7 +50,13 @@ public:
     bool               showCrossHair;
     int                horizontalCrossHairThickness;
     int                verticalCrossHairThickness;
-    String             horizontalCrossHairColour;
+	int                crossHairGridCubeWidth;
+	int                crossHairGridCubeHeight;
+	int                crossHairDetectFromX;
+	int                crossHairDetectFromY;
+	int                crossHairDetectWidth;
+	int                crossHairDetectHeight;
+	String             horizontalCrossHairColour;
     String             verticalCrossHairColour;
     
 private:
