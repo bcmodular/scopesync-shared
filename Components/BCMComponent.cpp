@@ -471,6 +471,8 @@ void BCMComponent::paint(Graphics& g)
 				Rectangle<int> horizontalLine(0, horizontalLineTop, this->getWidth(), horizontalCrossHairThickness);
 				g.setColour(horizontalCrossHairColour);
 				g.fillRect(horizontalLine);
+
+				//DBG("mousePosX: " + String(mousePosX) + ", mousePosY: " + String(mousePosY) + ", xhairbounds: " + crossHairBounds.toString() + ", vLine: " + verticalLine.toString() + ", hLine: " + horizontalLine.toString());
 			}
 		}
     }
@@ -886,5 +888,11 @@ void BCMComponent::mouseDown(const MouseEvent& event)
 void BCMComponent::mouseMove(const MouseEvent & event)
 {
 	mousePosition = event.getScreenPosition();
+	repaint();
+}
+
+void BCMComponent::mouseDrag(const MouseEvent & event)
+{
+	mousePosition.setY(event.getScreenPosition().getY());
 	repaint();
 }

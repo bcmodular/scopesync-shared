@@ -170,6 +170,7 @@ private:
 
 	// For cross-hair positioning
 	void mouseMove(const MouseEvent& event) override;
+	void mouseDrag(const MouseEvent& event) override;
 
     // Open the specific Style Override Panel for components as appropriate
     void overrideStyle() override;
