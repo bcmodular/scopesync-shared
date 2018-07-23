@@ -37,6 +37,8 @@ BCMTabbedComponent::BCMTabbedComponent(TabbedButtonBar::Orientation orientation,
 {
     setParentWidget(this);
     setWantsKeyboardFocus(true);
+	setOutline(0);
+	setIndent(0);
 }
 
 BCMTabbedComponent::~BCMTabbedComponent() {}
